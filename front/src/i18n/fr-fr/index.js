@@ -8,6 +8,9 @@ export default {
     languages: {
       french: 'Français',
       english: 'Anglais'
+    },
+    drawer: {
+      tool_list_title: 'Liste des outils'
     }
   }
 }

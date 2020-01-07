@@ -12,16 +12,26 @@
           icon="menu"
           aria-label="Menu"
         />
-
         <q-toolbar-title>
           {{ $t('global_page.title') }}
         </q-toolbar-title>
-        <q-select
+        <q-btn-dropdown
+          stretch
+          flat
           :label="$t('global_page.choose_language')"
-          v-model="lang"
-          map-options
-          :options="langs"
-        />
+        >
+          <q-list>
+            <q-item
+              v-for="lang in langs"
+              :key="lang.value"
+              clickable
+              v-close-popup
+              v-on:click="changeLanguage(lang)"
+            >
+             {{lang.label}}
+            </q-item>
+          </q-list>
+        </q-btn-dropdown>
       </q-toolbar>
     </q-header>
 
@@ -133,6 +143,9 @@ export default {
           name: 'english'
         }
       ]
+    },
+    changeLanguage (lang) {
+      this.lang = lang
     }
   }
 }

@@ -12,7 +12,7 @@
         />
 
         <q-toolbar-title>
-          Quasar App
+          {{ $t('global_page.title') }}
         </q-toolbar-title>
 
         <div>Quasar v{{ $q.version }}</div>

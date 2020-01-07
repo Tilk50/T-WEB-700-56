@@ -3,6 +3,11 @@
 
 export default {
   global_page: {
-    title: 'The court of money'
+    title: 'The court of money',
+    choose_language: 'Choose an language',
+    languages: {
+      french: 'French',
+      english: 'English'
+    }
   }
 }

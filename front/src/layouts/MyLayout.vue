@@ -1,7 +1,9 @@
 <template>
   <q-layout view="lHh Lpr lFf">
     <q-header elevated>
-      <q-toolbar>
+      <q-toolbar
+        class="row"
+      >
         <q-btn
           flat
           dense
@@ -14,8 +16,12 @@
         <q-toolbar-title>
           {{ $t('global_page.title') }}
         </q-toolbar-title>
-
-        <div>Quasar v{{ $q.version }}</div>
+        <q-select
+          :label="$t('global_page.choose_language')"
+          v-model="lang"
+          map-options
+          :options="langs"
+        />
       </q-toolbar>
     </q-header>
 
@@ -91,12 +97,42 @@
 </template>
 
 <script>
+
 export default {
   name: 'MyLayout',
-
   data () {
     return {
-      leftDrawerOpen: false
+      leftDrawerOpen: false,
+      langs: [],
+      lang: this.$i18n.locale
+    }
+  },
+  watch: {
+    lang (lang) {
+      // Test default local language
+      this.$i18n.locale = lang.value
+      this.loadLanguages()
+      console.log(lang)
+      this.lang.label = this.$t(`global_page.languages.${lang.name}`)
+    }
+  },
+  mounted () {
+    this.loadLanguages()
+  },
+  methods: {
+    loadLanguages () {
+      this.langs = [
+        {
+          label: this.$t('global_page.languages.french'),
+          value: 'fr-fr',
+          name: 'french'
+        },
+        {
+          label: this.$t('global_page.languages.english'),
+          value: 'en-us',
+          name: 'english'
+        }
+      ]
     }
   }
 }

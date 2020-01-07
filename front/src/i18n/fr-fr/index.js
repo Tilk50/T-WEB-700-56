@@ -3,6 +3,11 @@
 
 export default {
   global_page: {
-    title: 'Cours de l\'argent'
+    title: 'Cours de l\'argent',
+    choose_language: 'Selectionnez une langue',
+    languages: {
+      french: 'Français',
+      english: 'Anglais'
+    }
   }
 }

@@ -32,6 +32,12 @@
             </q-item>
           </q-list>
         </q-btn-dropdown>
+        <q-btn
+          flat
+          dense
+          icon="home"
+          @click="goHome()"
+        />
       </q-toolbar>
     </q-header>
 
@@ -54,7 +60,7 @@
               <q-icon v-if="search !== ''" name="close" @click="search = ''" class="cursor-pointer" />
             </template>
             <template v-slot:after>
-              <q-btn round dense flat icon="send" @click="sendSearch()" />
+              <q-btn round dense flat icon="send" @click="sendSearch()" :disable="enableSearch"/>
             </template>
           </q-input>
         </q-item>
@@ -110,7 +116,17 @@ export default {
       this.lang = lang
     },
     sendSearch () {
-      // TODO => implement this method
+      // Set local storage
+      this.$q.localStorage.set('search', this.search)
+      this.$router.push('/search')
+    },
+    goHome () {
+      this.$router.push('/')
+    }
+  },
+  computed: {
+    enableSearch () {
+      return this.search === ''
     }
   }
 }

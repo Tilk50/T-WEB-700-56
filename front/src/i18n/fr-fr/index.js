@@ -16,7 +16,14 @@ export default {
       }
     },
     label: {
-      cryptoMonnaie: 'CryptoMonaie'
+      crypto_monnaie: 'CryptoMonaie'
     }
+  },
+  errors: {
+    title: 'Attention',
+    no_search: 'Vous n\'avez pas renseignés de critères de recherche'
+  },
+  labels: {
+    close: 'Fermer'
   }
 }

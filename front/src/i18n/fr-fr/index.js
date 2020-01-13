@@ -10,7 +10,13 @@ export default {
       english: 'Anglais'
     },
     drawer: {
-      tool_list_title: 'Liste des outils'
+      tool_list_title: 'Liste des outils',
+      tools: {
+        search: 'Rechercher'
+      }
+    },
+    label: {
+      cryptoMonnaie: 'CryptoMonaie'
     }
   }
 }

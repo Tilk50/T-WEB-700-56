@@ -26,7 +26,7 @@
               :key="lang.value"
               clickable
               v-close-popup
-              v-on:click="changeLanguage(lang)"
+              @click="changeLanguage(lang)"
             >
              {{lang.label}}
             </q-item>
@@ -44,7 +44,19 @@
       <!-- tool list for the drawer -->
       <q-list>
         <q-item>
-          <h3>{{$t('')}}</h3>
+          <h5>{{$t('global_page.drawer.tool_list_title')}}</h5>
+        </q-item>
+        <!-- Search bar  -->
+        <q-item>
+          <q-input bottom-slots v-model="search" :label="$t('global_page.drawer.tools.search')" counter maxlength="12">
+
+            <template v-slot:append>
+              <q-icon v-if="search !== ''" name="close" @click="search = ''" class="cursor-pointer" />
+            </template>
+            <template v-slot:after>
+              <q-btn round dense flat icon="send" @click="sendSearch()" />
+            </template>
+          </q-input>
         </q-item>
       </q-list>
     </q-drawer>
@@ -63,7 +75,8 @@ export default {
     return {
       leftDrawerOpen: false,
       langs: [],
-      lang: this.$i18n.locale
+      lang: this.$i18n.locale,
+      search: ''
     }
   },
   watch: {
@@ -95,6 +108,9 @@ export default {
     },
     changeLanguage (lang) {
       this.lang = lang
+    },
+    sendSearch () {
+      // TODO => implement this method
     }
   }
 }

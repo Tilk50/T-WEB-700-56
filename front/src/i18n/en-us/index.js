@@ -3,27 +3,30 @@
 
 export default {
   global_page: {
-    title: 'Cours de l\'argent',
-    choose_language: 'Selectionnez une langue',
+    title: 'The court of money',
+    choose_language: 'Choose a language',
     languages: {
-      french: 'Français',
-      english: 'Anglais'
+      french: 'French',
+      english: 'English'
     },
     drawer: {
-      tool_list_title: 'Liste des outils',
+      tool_list_title: 'Tools list',
       tools: {
-        search: 'Rechercher'
+        search: 'Search',
+        search_title: 'Search crypto - money',
+        fav_title: 'My favs'
       }
     },
     label: {
-      crypto_monnaie: 'CryptoMonaie'
+      crypto_monnaie: 'Crypto - money'
     }
   },
   errors: {
-    title: 'Attention',
-    no_search: 'Vous n\'avez pas renseignés de critères de recherche'
+    title: 'Warning',
+    no_search: 'You have not entered any search criteria'
   },
   labels: {
-    close: 'Fermer'
+    close: 'Close',
+    see: 'See'
   }
 }

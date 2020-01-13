@@ -1,7 +1,9 @@
 <template>
   <q-layout view="lHh Lpr lFf">
     <q-header elevated>
-      <q-toolbar>
+      <q-toolbar
+        class="row"
+      >
         <q-btn
           flat
           dense
@@ -10,12 +12,32 @@
           icon="menu"
           aria-label="Menu"
         />
-
         <q-toolbar-title>
-          Quasar App
+          {{ $t('global_page.title') }}
         </q-toolbar-title>
-
-        <div>Quasar v{{ $q.version }}</div>
+        <q-btn-dropdown
+          stretch
+          flat
+          :label="$t('global_page.choose_language')"
+        >
+          <q-list>
+            <q-item
+              v-for="lang in langs"
+              :key="lang.value"
+              clickable
+              v-close-popup
+              @click="changeLanguage(lang)"
+            >
+             {{lang.label}}
+            </q-item>
+          </q-list>
+        </q-btn-dropdown>
+        <q-btn
+          flat
+          dense
+          icon="home"
+          @click="goHome()"
+        />
       </q-toolbar>
     </q-header>
 
@@ -25,60 +47,41 @@
       bordered
       content-class="bg-grey-2"
     >
+      <!-- tool list for the drawer -->
       <q-list>
-        <q-item-label header>Essential Links</q-item-label>
-        <q-item clickable tag="a" target="_blank" href="https://quasar.dev">
-          <q-item-section avatar>
-            <q-icon name="school" />
-          </q-item-section>
+        <q-item>
+          <h5>{{$t('global_page.drawer.tool_list_title')}}</h5>
+        </q-item>
+        <!-- Search bar  -->
+        <q-item>
           <q-item-section>
-            <q-item-label>Docs</q-item-label>
-            <q-item-label caption>quasar.dev</q-item-label>
+            <div class="text-subtitle2">{{$t('global_page.drawer.tools.search_title')}}</div>
+            <q-input bottom-slots v-model="search" :label="$t('global_page.drawer.tools.search')" counter maxlength="12">
+              <template v-slot:append>
+                <q-icon v-if="search !== ''" name="close" @click="search = ''" class="cursor-pointer" />
+              </template>
+              <template v-slot:after>
+                <q-btn round dense flat icon="send" @click="sendSearch()" :disable="enableSearch"/>
+              </template>
+            </q-input>
           </q-item-section>
         </q-item>
-        <q-item clickable tag="a" target="_blank" href="https://github.quasar.dev">
-          <q-item-section avatar>
-            <q-icon name="code" />
-          </q-item-section>
+        <!-- Fav list -->
+        <q-item>
           <q-item-section>
-            <q-item-label>Github</q-item-label>
-            <q-item-label caption>github.com/quasarframework</q-item-label>
-          </q-item-section>
-        </q-item>
-        <q-item clickable tag="a" target="_blank" href="https://chat.quasar.dev">
-          <q-item-section avatar>
-            <q-icon name="chat" />
-          </q-item-section>
-          <q-item-section>
-            <q-item-label>Discord Chat Channel</q-item-label>
-            <q-item-label caption>chat.quasar.dev</q-item-label>
-          </q-item-section>
-        </q-item>
-        <q-item clickable tag="a" target="_blank" href="https://forum.quasar.dev">
-          <q-item-section avatar>
-            <q-icon name="record_voice_over" />
-          </q-item-section>
-          <q-item-section>
-            <q-item-label>Forum</q-item-label>
-            <q-item-label caption>forum.quasar.dev</q-item-label>
-          </q-item-section>
-        </q-item>
-        <q-item clickable tag="a" target="_blank" href="https://twitter.quasar.dev">
-          <q-item-section avatar>
-            <q-icon name="rss_feed" />
-          </q-item-section>
-          <q-item-section>
-            <q-item-label>Twitter</q-item-label>
-            <q-item-label caption>@quasarframework</q-item-label>
-          </q-item-section>
-        </q-item>
-        <q-item clickable tag="a" target="_blank" href="https://facebook.quasar.dev">
-          <q-item-section avatar>
-            <q-icon name="public" />
-          </q-item-section>
-          <q-item-section>
-            <q-item-label>Facebook</q-item-label>
-            <q-item-label caption>@QuasarFramework</q-item-label>
+            <div class="text-subtitle2">{{$t('global_page.drawer.tools.fav_title')}}</div>
+            <q-list>
+              <q-item
+                class="raw"
+                v-for="fav in favs"
+                :key="fav.label">
+                <div class="text-weight-bolder col-6">{{fav.label}}</div>
+                <q-btn
+                  icon="send"
+                  :label="$t('labels.see')"
+                />
+              </q-item>
+            </q-list>
           </q-item-section>
         </q-item>
       </q-list>
@@ -91,12 +94,65 @@
 </template>
 
 <script>
+
 export default {
   name: 'MyLayout',
-
   data () {
     return {
-      leftDrawerOpen: false
+      leftDrawerOpen: false,
+      langs: [],
+      lang: this.$i18n.locale,
+      search: '',
+      favs: []
+    }
+  },
+  watch: {
+    lang (lang) {
+      // Test default local language
+      this.$i18n.locale = lang.value
+      this.loadLanguages()
+      console.log(lang)
+      this.lang.label = this.$t(`global_page.languages.${lang.name}`)
+    }
+  },
+  mounted () {
+    this.loadLanguages()
+    this.favs = [
+      { name: 'bitcoin', label: 'Bitcoin' },
+      { name: 'fav2', label: 'Favoris 2' },
+      { name: 'fav3', label: 'Favoris 3' }
+    ]
+  },
+  methods: {
+    loadLanguages () {
+      this.langs = [
+        {
+          label: this.$t('global_page.languages.french'),
+          value: 'fr-fr',
+          name: 'french'
+        },
+        {
+          label: this.$t('global_page.languages.english'),
+          value: 'en-us',
+          name: 'english'
+        }
+      ]
+    },
+    changeLanguage (lang) {
+      this.lang = lang
+    },
+    sendSearch () {
+      // Set local storage
+      this.$q.localStorage.set('search', this.search)
+      this.$router.push('/search')
+    },
+    goHome () {
+      this.$router.push('/')
+    }
+  },
+  computed: {
+    enableSearch () {
+      return this.search === ''
     }
   }
 }

@@ -12,11 +12,13 @@ export default {
     drawer: {
       tool_list_title: 'Liste des outils',
       tools: {
-        search: 'Rechercher'
+        search: 'Rechercher',
+        search_title: 'Rechercher une crypto monnaie',
+        fav_title: 'Mes favoris'
       }
     },
     label: {
-      crypto_monnaie: 'CryptoMonaie'
+      crypto_monnaie: 'CryptoMonnaie'
     }
   },
   errors: {
@@ -24,6 +26,7 @@ export default {
     no_search: 'Vous n\'avez pas renseignés de critères de recherche'
   },
   labels: {
-    close: 'Fermer'
+    close: 'Fermer',
+    see: 'Voir'
   }
 }

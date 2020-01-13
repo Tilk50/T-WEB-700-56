@@ -54,15 +54,35 @@
         </q-item>
         <!-- Search bar  -->
         <q-item>
-          <q-input bottom-slots v-model="search" :label="$t('global_page.drawer.tools.search')" counter maxlength="12">
-
-            <template v-slot:append>
-              <q-icon v-if="search !== ''" name="close" @click="search = ''" class="cursor-pointer" />
-            </template>
-            <template v-slot:after>
-              <q-btn round dense flat icon="send" @click="sendSearch()" :disable="enableSearch"/>
-            </template>
-          </q-input>
+          <q-item-section>
+            <div class="text-subtitle2">{{$t('global_page.drawer.tools.search_title')}}</div>
+            <q-input bottom-slots v-model="search" :label="$t('global_page.drawer.tools.search')" counter maxlength="12">
+              <template v-slot:append>
+                <q-icon v-if="search !== ''" name="close" @click="search = ''" class="cursor-pointer" />
+              </template>
+              <template v-slot:after>
+                <q-btn round dense flat icon="send" @click="sendSearch()" :disable="enableSearch"/>
+              </template>
+            </q-input>
+          </q-item-section>
+        </q-item>
+        <!-- Fav list -->
+        <q-item>
+          <q-item-section>
+            <div class="text-subtitle2">{{$t('global_page.drawer.tools.fav_title')}}</div>
+            <q-list>
+              <q-item
+                class="raw"
+                v-for="fav in favs"
+                :key="fav.label">
+                <div class="text-weight-bolder col-6">{{fav.label}}</div>
+                <q-btn
+                  icon="send"
+                  :label="$t('labels.see')"
+                />
+              </q-item>
+            </q-list>
+          </q-item-section>
         </q-item>
       </q-list>
     </q-drawer>
@@ -82,7 +102,8 @@ export default {
       leftDrawerOpen: false,
       langs: [],
       lang: this.$i18n.locale,
-      search: ''
+      search: '',
+      favs: []
     }
   },
   watch: {
@@ -96,6 +117,11 @@ export default {
   },
   mounted () {
     this.loadLanguages()
+    this.favs = [
+      { name: 'bitcoin', label: 'Bitcoin' },
+      { name: 'fav2', label: 'Favoris 2' },
+      { name: 'fav3', label: 'Favoris 3' }
+    ]
   },
   methods: {
     loadLanguages () {

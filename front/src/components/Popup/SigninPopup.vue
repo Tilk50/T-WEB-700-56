@@ -14,7 +14,8 @@
             :hint="$t('hints.enter_mail_address')"
             lazy-rules
             type="email"
-            :rules="[ val => val && val.length > 0 || $t('errors.enter_mail')]"
+            :error-message="$t('errors.enter_mail')"
+            :error="!goodMail"
           />
           <q-input
             ref="pwd1"
@@ -24,6 +25,28 @@
             :hint="$t('hints.enter_password')"
             type="password"
           />
+          <div class="column">
+            <q-checkbox
+              v-model="havePasswordGoodLength"
+              disable
+              :label="$t('labels.password_length')"
+            />
+            <q-checkbox
+              v-model="havePasswordUpperCase"
+              disable
+              :label="$t('labels.password_uppercase')"
+            />
+            <q-checkbox
+              v-model="havePasswordNumber"
+              disable
+              :label="$t('labels.password_number')"
+            />
+            <q-checkbox
+              v-model="havePasswordSpecialCar"
+              disable
+              :label="$t('labels.password_special')"
+            />
+          </div>
           <q-input
             ref="pwd2"
             filled
@@ -31,7 +54,8 @@
             :label="$t('labels.password')"
             :hint="$t('hints.password_confirm')"
             type="password"
-            :rules="[ val => val && (val.length > 0 && val === this.pwd1) || $t('errors.password_different')]"
+            :error="!samePassword"
+            :error-message="$t('errors.password_different')"
           />
         </form>
       </div>
@@ -69,9 +93,33 @@ export default {
     }
   },
   computed: {
-    goodData () {
+    goodMail () {
       let re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-      return this.mail.length > 0 && re.test(this.mail.toLocaleLowerCase()) && this.pwd1 === this.pwd2
+      return this.mail.length > 0 && re.test(this.mail.toLocaleLowerCase())
+    },
+    havePasswordGoodLength () {
+      return this.pwd1.length > 8
+    },
+    havePasswordUpperCase () {
+      let re = /(?=.*[A-Z])/
+      return re.test(this.pwd1)
+    },
+    havePasswordNumber () {
+      let re = /(?=.*\d)/
+      return re.test(this.pwd1)
+    },
+    havePasswordSpecialCar () {
+      let re = /(?=.*\W)/
+      return re.test(this.pwd1)
+    },
+    goodPassword () {
+      return this.havePasswordGoodLength && this.havePasswordNumber && this.havePasswordSpecialCar && this.havePasswordUpperCase
+    },
+    samePassword () {
+      return this.pwd1 === this.pwd2 || !this.goodPassword
+    },
+    goodData () {
+      return this.goodMail && this.goodPassword && this.samePassword
     }
   }
 }

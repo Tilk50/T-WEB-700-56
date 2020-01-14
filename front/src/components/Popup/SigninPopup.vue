@@ -37,7 +37,7 @@
     </q-card-section>
     <!-- Notice v-close-popup -->
     <q-card-actions align="center">
-      <q-btn :label="$t('labels.login')" type="submit" color="primary" icon="send"/>
+      <q-btn :label="$t('labels.login')" type="submit" color="primary" icon="send" @click="signin()"/>
       <q-btn icon="close" :label="$t('labels.cancel')" v-close-popup/>
     </q-card-actions>
   </q-card>
@@ -51,6 +51,20 @@ export default {
       mail: '',
       pwd1: '',
       pwd2: ''
+    }
+  },
+  methods: {
+    signin () {
+      this.$axios({
+        method: 'post',
+        url: '',
+        data: {
+          mail: this.mail,
+          password: this.pwd1
+        }
+      }).then(function (response) {
+        console.log(response)
+      })
     }
   }
 }

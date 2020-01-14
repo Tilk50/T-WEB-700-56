@@ -30,7 +30,7 @@
     <!-- Notice v-close-popup -->
     <q-card-actions align="center">
       <q-btn :label="$t('labels.sign_in')" color="info" v-close-popup @click="signin()"/>
-      <q-btn :label="$t('labels.login')" type="submit" color="primary" icon="send"/>
+      <q-btn :label="$t('labels.login')" type="submit" color="primary" icon="send" @click="login()"/>
       <q-btn icon="close" :label="$t('labels.cancel')" v-close-popup/>
     </q-card-actions>
   </q-card>
@@ -49,6 +49,18 @@ export default {
     signin () {
       // Emit to parent componant that we want to sign in
       this.$emit('user-signin')
+    },
+    login () {
+      this.$axios({
+        method: 'post',
+        url: '',
+        data: {
+          mail: this.mail,
+          password: this.pwd
+        }
+      }).then(function (response) {
+        console.log(response)
+      })
     }
   }
 }

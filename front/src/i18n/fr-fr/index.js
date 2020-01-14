@@ -40,6 +40,7 @@ export default {
   },
   hints: {
     enter_mail_address: 'Entrez votre adresse mail',
-    enter_password: 'Entrez votre mot de passe'
+    enter_password: 'Entrez votre mot de passe',
+    password_confirm: 'Confirmez votre mot de passe'
   }
 }

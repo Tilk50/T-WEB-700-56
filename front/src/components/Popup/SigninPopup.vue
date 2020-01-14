@@ -19,9 +19,17 @@
           <q-input
             ref="pwd"
             filled
-            v-model="pwd"
+            v-model="pwd1"
             :label="$t('labels.password')"
             :hint="$t('hints.enter_password')"
+            type="password"
+          />
+          <q-input
+            ref="pwd"
+            filled
+            v-model="pwd2"
+            :label="$t('labels.password')"
+            :hint="$t('hints.password_confirm')"
             type="password"
           />
         </form>
@@ -29,7 +37,6 @@
     </q-card-section>
     <!-- Notice v-close-popup -->
     <q-card-actions align="center">
-      <q-btn :label="$t('labels.sign_in')" color="info" v-close-popup @click="signin()"/>
       <q-btn :label="$t('labels.login')" type="submit" color="primary" icon="send"/>
       <q-btn icon="close" :label="$t('labels.cancel')" v-close-popup/>
     </q-card-actions>
@@ -38,17 +45,12 @@
 
 <script>
 export default {
-  name: 'LoginPopup',
+  name: 'SigninPopup',
   data () {
     return {
       mail: '',
-      pwd: ''
-    }
-  },
-  methods: {
-    signin () {
-      // Emit to parent componant that we want to sign in
-      this.$emit('user-signin')
+      pwd1: '',
+      pwd2: ''
     }
   }
 }

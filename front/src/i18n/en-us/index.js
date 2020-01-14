@@ -24,11 +24,23 @@ export default {
   },
   errors: {
     title: 'Warning',
-    no_search: 'You have not entered any search criteria'
+    no_search: 'You have not entered any search criteria',
+    enter_mail: 'Vous devez entrer votre addresse mail au bon format'
   },
   labels: {
     close: 'Close',
     see: 'See',
-    log_in: 'Login in   '
+    log_in: 'Login in',
+    login: 'Connexion',
+    log_out: 'Se déconnecter',
+    mail_address: 'Adresse mail',
+    password: 'Mot de passe',
+    cancel: 'Annuler',
+    sign_in: 'S\'inscire'
+  },
+  hints: {
+    enter_mail_address: 'Entrez votre adresse mail',
+    enter_password: 'Entrez votre mot de passe',
+    password_confirm: 'Confirmez votre mot de passe'
   }
 }

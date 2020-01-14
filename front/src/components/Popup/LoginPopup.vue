@@ -5,7 +5,7 @@
     </q-card-section>
     <q-card-section class="q-ma-md q-pa-md">
       <div class="fa-align-center">
-        <form>
+        <form class="q-pa-md q-gutter-md">
           <q-input
             ref="mail"
             filled

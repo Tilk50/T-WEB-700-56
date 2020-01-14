@@ -25,7 +25,8 @@ export default {
   errors: {
     title: 'Warning',
     no_search: 'You have not entered any search criteria',
-    enter_mail: 'Vous devez entrer votre addresse mail au bon format'
+    enter_mail: 'Vous devez entrer votre addresse mail au bon format',
+    password_different: 'Both password must be equals'
   },
   labels: {
     close: 'Close',

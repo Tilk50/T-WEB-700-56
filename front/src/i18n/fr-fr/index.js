@@ -18,15 +18,28 @@ export default {
       }
     },
     label: {
-      crypto_monnaie: 'CryptoMonnaie'
+      crypto_monnaie: 'CryptoMonnaie',
+      account: 'Mon compte'
     }
   },
   errors: {
     title: 'Attention',
-    no_search: 'Vous n\'avez pas renseignés de critères de recherche'
+    no_search: 'Vous n\'avez pas renseignés de critères de recherche',
+    enter_mail: 'Vous devez entrer votre addresse mail au bon format'
   },
   labels: {
     close: 'Fermer',
-    see: 'Voir'
+    see: 'Voir',
+    log_in: 'Se connecter',
+    login: 'Connexion',
+    log_out: 'Se déconnecter',
+    mail_address: 'Adresse mail',
+    password: 'Mot de passe',
+    cancel: 'Annuler',
+    sign_in: 'S\'inscire'
+  },
+  hints: {
+    enter_mail_address: 'Entrez votre adresse mail',
+    enter_password: 'Entrez votre mot de passe'
   }
 }

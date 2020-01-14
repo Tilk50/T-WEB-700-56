@@ -18,7 +18,8 @@ export default {
       }
     },
     label: {
-      crypto_monnaie: 'Crypto - money'
+      crypto_monnaie: 'Crypto - money',
+      account: 'My account'
     }
   },
   errors: {
@@ -27,6 +28,7 @@ export default {
   },
   labels: {
     close: 'Close',
-    see: 'See'
+    see: 'See',
+    log_in: 'Login in   '
   }
 }

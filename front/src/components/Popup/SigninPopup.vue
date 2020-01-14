@@ -23,8 +23,16 @@
             v-model="pwd1"
             :label="$t('labels.password')"
             :hint="$t('hints.enter_password')"
-            type="password"
-          />
+            :type="isPwd1 ? 'password' : 'text'"
+          >
+            <template v-slot:append>
+              <q-icon
+                :name="isPwd1 ? 'visibility_off' : 'visibility'"
+                class="cursor-pointer"
+                @click="isPwd1 = !isPwd1"
+              ></q-icon>
+            </template>
+          </q-input>
           <div class="column">
             <q-checkbox
               v-model="havePasswordGoodLength"
@@ -48,21 +56,30 @@
             />
           </div>
           <q-input
+            v-if="goodPassword"
             ref="pwd2"
             filled
             v-model="pwd2"
             :label="$t('labels.password')"
             :hint="$t('hints.password_confirm')"
-            type="password"
+            :type="isPwd2 ? 'password' : 'text'"
             :error="!samePassword"
             :error-message="$t('errors.password_different')"
-          />
+          >
+            <template v-slot:append>
+              <q-icon
+                :name="isPwd2 ? 'visibility_off' : 'visibility'"
+                class="cursor-pointer"
+                @click="isPwd2 = !isPwd2"
+              ></q-icon>
+            </template>
+          </q-input>
         </form>
       </div>
     </q-card-section>
     <!-- Notice v-close-popup -->
     <q-card-actions align="center">
-      <q-btn :label="$t('labels.login')" type="submit" color="primary" icon="send" @click="signin()" :disable="!goodData"/>
+      <q-btn :label="$t('labels.validate')" type="submit" color="primary" icon="send" @click="signin()" :disable="!goodData"/>
       <q-btn icon="close" :label="$t('labels.cancel')" v-close-popup/>
     </q-card-actions>
   </q-card>
@@ -75,7 +92,9 @@ export default {
     return {
       mail: '',
       pwd1: '',
-      pwd2: ''
+      pwd2: '',
+      isPwd1: true,
+      isPwd2: true
     }
   },
   methods: {
@@ -116,7 +135,7 @@ export default {
       return this.havePasswordGoodLength && this.havePasswordNumber && this.havePasswordSpecialCar && this.havePasswordUpperCase
     },
     samePassword () {
-      return this.pwd1 === this.pwd2 || !this.goodPassword
+      return this.pwd1 === this.pwd2
     },
     goodData () {
       return this.goodMail && this.goodPassword && this.samePassword

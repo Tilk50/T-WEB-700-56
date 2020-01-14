@@ -41,7 +41,8 @@ export default {
     password_length: 'Longueur du mot de passe superieure à 8 caractères',
     password_uppercase: 'Le mot de passe contient au moins une majuscule',
     password_number: 'Le mot de passe contient au moins un chiffre',
-    password_special: 'Le mot de passe contient au moins un caractère spécial'
+    password_special: 'Le mot de passe contient au moins un caractère spécial',
+    validate: 'Valider'
   },
   hints: {
     enter_mail_address: 'Entrez votre adresse mail',

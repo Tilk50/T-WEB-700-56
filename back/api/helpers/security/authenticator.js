@@ -1,11 +1,10 @@
 'use strict';
 
 const mongoose = require('mongoose');
-const config = require('config');
+const config = require('config/package');
 const boom = require("@hapi/boom");
-const userSchema = require('../../schemas/UserSchema');
-const User = new mongoose.model('User', userSchema);
-const jwt = require('jsonwebtoken');
+const User = require('../../schemas/UserSchema');
+const jwt = require('jsonwebtoken/package');
 
 const authenticator = {
   isAuthenticated: async function (req, res, next) {

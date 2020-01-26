@@ -2,7 +2,8 @@
 
 const mongoose = require('mongoose');
 const config = require('config/package')
-const User = require('../../schemas/UserSchema');
+const userSchema = require('../../schemas/UserSchema');
+const User = new mongoose.model('User', userSchema);
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken/package');
 const boom = require('@hapi/boom');

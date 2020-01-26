@@ -63,4 +63,4 @@ const cryptoSchema = new Schema({
     }
 });
 
-module.export = mongoose.model('Crypto', cryptoSchema);
+module.export = cryptoSchema;

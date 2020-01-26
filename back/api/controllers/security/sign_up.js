@@ -2,7 +2,9 @@
 
 const mongoose = require('mongoose');
 const boom = require('@hapi/boom');
-const User = require('../../schemas/UserSchema');
+const userSchema = require('../../schemas/UserSchema');
+const User = new mongoose.model('User', userSchema);
+
 
 const signUp = function(req, res, next) {
     if (req.body.user.password !== req.body.user.confirmPassword) {

@@ -43,4 +43,4 @@ userSchema.pre('save', function (next) {
     this.password = bcrypt.hashSync(this.password, saltRounds)
 });
 
-module.export = mongoose.model('User', userSchema);
+module.exports = userSchema;

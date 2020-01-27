@@ -2,16 +2,16 @@
   "name": "back",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js"
   },
-  "author": "Alexis Trousset",
+  "author": "Trousset Alexis",
   "license": "ISC",
   "dependencies": {
     "@hapi/boom": "^7.4.10",
-    "bcryptjs": "^2.4.3",
+    "bcrypt": "3.0.6",
     "body-parser": "^1.19.0",
     "config": "^3.2.2",
     "cors": "^2.8.5",
@@ -20,7 +20,6 @@
     "mongodb": "^3.3.2",
     "mongoose": "^5.7.1",
     "morgan": "^1.9.1",
-    "nodemon": "^2.0.2",
-    "object-assign": "^4.1.1"
+    "nodemon": "^2.0.2"
   }
 }

@@ -1,10 +1,9 @@
 const mongoose = require('mongoose');
 const saltRounds = 10;
-const bcrypt = require('bcryptjs');
+const bcrypt = require('bcrypt');
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
-    _id: Schema.Types.ObjectId,
     email: {
         type: String,
         required: true
@@ -17,10 +16,6 @@ const userSchema = new Schema({
         type: Boolean,
          default: false
      },
-    confirmPassword: {
-      type: String,
-      required: true
-    },
     favorites: [
         {
             type: Schema.Types.ObjectId,
@@ -41,6 +36,7 @@ userSchema.pre('save', function (next) {
     if (!user.isModified('password')) return next();
 
     this.password = bcrypt.hashSync(this.password, saltRounds)
+    next();
 });
 
 module.exports = userSchema;

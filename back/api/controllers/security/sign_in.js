@@ -1,11 +1,11 @@
 'use strict';
 
 const mongoose = require('mongoose');
-const config = require('config/package')
+const config = require('../../config/default');
 const userSchema = require('../../schemas/UserSchema');
 const User = new mongoose.model('User', userSchema);
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken/package');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const boom = require('@hapi/boom');
 
 const signIn = function (req, res, next) {

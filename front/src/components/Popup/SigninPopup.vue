@@ -101,10 +101,13 @@ export default {
     signin () {
       this.$axios({
         method: 'post',
-        url: '',
+        url: 'http://localhost:3000/api/sign-up',
         data: {
-          mail: this.mail,
-          password: this.pwd1
+          user: {
+            email: this.mail,
+            password: this.pwd1,
+            confirmPassword: this.pwd2
+          }
         }
       }).then(function (response) {
         console.log(response)

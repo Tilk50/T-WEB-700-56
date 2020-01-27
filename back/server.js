@@ -2,26 +2,15 @@
 // Import the different tools usefuul for the app
 const express = require('express');
 const app = express();
-const config = require('config/package');
+const config = require('config');
 const bodyParser = require('body-parser');
 const boom = require('@hapi/boom');
 const cors = require('cors');
 const logger = require('morgan');
-const mongoose = require('mongoose');
+const db = require('./api/helpers/db/db');
 
 // Define the app port
 const port = process.env.PORT || 3000;
-
-// Set mongoose instances
-mongoose.Promise =  global.Promise;
-mongoose.connect('mongodb://localhost/countOfMoneyDB', {useNewUrlParser: true, useUnifiedTopology: true})
-    .then(() => {
-        console.log('DB Connected');
-        }
-    )
-    .catch(err => {
-        console.log('Db Connection Error ' + err.message);
-    });
 
 // Set the app configuration*
 app.use(cors());

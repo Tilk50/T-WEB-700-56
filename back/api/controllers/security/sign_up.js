@@ -12,7 +12,9 @@ const signUp = function(req, res, next) {
     } else {
         User.create({
             email: req.body.user.email,
-            password: req.body.password
+            password: req.body.user.password,
+            admin: true,
+            favorites: []
         }, function (err, user) {
             if (err) return next(boom.badRequest(err));
            res.json({

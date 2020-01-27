@@ -33,6 +33,7 @@
           </q-list>
         </q-btn-dropdown>
         <q-btn-dropdown
+          v-model="showMyAccount"
           flat
           icon="account_circle"
         >
@@ -111,7 +112,8 @@ export default {
       langs: [],
       lang: this.$i18n.locale,
       search: '',
-      favs: []
+      favs: [],
+      showMyAccount: false
     }
   },
   watch: {
@@ -119,7 +121,6 @@ export default {
       // Test default local language
       this.$i18n.locale = lang.value
       this.loadLanguages()
-      console.log(lang)
       this.lang.label = this.$t(`global_page.languages.${lang.name}`)
     }
   },
@@ -131,7 +132,15 @@ export default {
       { name: 'fav3', label: 'Favoris 3' }
     ]
   },
+  created () {
+    this.$root.$on('user-logged', this.userLogAction)
+    this.$root.$on('user-logout', this.userLogAction)
+  },
   methods: {
+    userLogAction () {
+      this.showMyAccount = false
+      // Todo => get favorites data
+    },
     loadLanguages () {
       this.langs = [
         {

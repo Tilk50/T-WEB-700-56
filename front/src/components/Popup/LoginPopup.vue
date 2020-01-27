@@ -58,8 +58,14 @@ export default {
           email: this.mail,
           password: this.pwd
         }
-      }).then(function (response) {
-        console.log(response)
+      }).then((response) => {
+        // Test if the response status is good
+        if (response.status === 200) {
+          // Setting the token in localStorage
+          this.$q.localStorage.set('jwt', response.data.jwt)
+          // Emit to the parent componant that we avec sign in
+          this.$root.$emit('user-logged')
+        }
       })
     }
   }

@@ -37,6 +37,7 @@ export default {
     }
   },
   mounted () {
+    // Check for errors
     if (this.$q.localStorage.has('error') && this.$q.localStorage.getItem('error') !== '') {
       console.log(this.$q.localStorage.getItem('error'))
       this.errorDialog = true

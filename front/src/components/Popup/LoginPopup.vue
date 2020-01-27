@@ -53,12 +53,10 @@ export default {
     login () {
       this.$axios({
         method: 'post',
-        url: 'http://localhost:3000/api/sign-up',
+        url: 'http://localhost:3000/api/sign-in',
         data: {
-          user: {
-            email: this.email,
-            password: this.password
-          }
+          email: this.mail,
+          password: this.pwd
         }
       }).then(function (response) {
         console.log(response)

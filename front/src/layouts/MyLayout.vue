@@ -32,6 +32,12 @@
             </q-item>
           </q-list>
         </q-btn-dropdown>
+        <q-btn-dropdown
+          flat
+          icon="account_circle"
+        >
+          <my-account/>
+        </q-btn-dropdown>
         <q-btn
           flat
           dense
@@ -95,8 +101,10 @@
 
 <script>
 
+import MyAccount from '../components/general_componants/MyAccount'
 export default {
   name: 'MyLayout',
+  components: { MyAccount },
   data () {
     return {
       leftDrawerOpen: false,

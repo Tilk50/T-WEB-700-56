@@ -74,7 +74,7 @@
           </q-item-section>
         </q-item>
         <!-- Fav list -->
-        <q-item>
+        <q-item v-if="isUserLogged">
           <q-item-section>
             <div class="text-subtitle2">{{$t('global_page.drawer.tools.fav_title')}}</div>
             <q-list>
@@ -113,7 +113,8 @@ export default {
       lang: this.$i18n.locale,
       search: '',
       favs: [],
-      showMyAccount: false
+      showMyAccount: false,
+      isUserLogged: false
     }
   },
   watch: {
@@ -131,15 +132,30 @@ export default {
       { name: 'fav2', label: 'Favoris 2' },
       { name: 'fav3', label: 'Favoris 3' }
     ]
+    // Test ig user is logged
+    if (this.$q.localStorage.has('jwt')) {
+      this.isUserLogged = true
+    }
   },
   created () {
     this.$root.$on('user-logged', this.userLogAction)
     this.$root.$on('user-logout', this.userLogAction)
   },
   methods: {
+    userLogout () {
+      this.isUserLogged = false
+    },
+    userLogged () {
+      this.isUserLogged = true
+      // Todo => Get the favorite liste
+    },
     userLogAction () {
       this.showMyAccount = false
-      // Todo => get favorites data
+      if (this.$q.localStorage.has('jwt')) {
+        this.userLogged()
+      } else {
+        this.userLogout()
+      }
     },
     loadLanguages () {
       this.langs = [

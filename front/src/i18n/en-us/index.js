@@ -26,17 +26,18 @@ export default {
     title: 'Warning',
     no_search: 'You have not entered any search criteria',
     enter_mail: 'Vous devez entrer votre addresse mail au bon format',
-    password_different: 'Both password must be equals'
+    password_different: 'Both password must be equals',
+    mail_already_use: 'This mail address is already used'
   },
   labels: {
     close: 'Close',
     see: 'See',
     log_in: 'Login in',
     login: 'Connexion',
-    log_out: 'Se déconnecter',
-    mail_address: 'Adresse mail',
-    password: 'Mot de passe',
-    cancel: 'Annuler',
+    log_out: 'Log out',
+    mail_address: 'Email address',
+    password: 'Password',
+    cancel: 'Cancel',
     sign_in: 'S\'inscire',
     password_length: 'Longueur du mot de passe superieure à 8 caractères',
     password_uppercase: 'Le mot de passe contient au moins une majuscule',
@@ -48,5 +49,8 @@ export default {
     enter_mail_address: 'Entrez votre adresse mail',
     enter_password: 'Entrez votre mot de passe',
     password_confirm: 'Confirmez votre mot de passe'
+  },
+  messages: {
+    have_to_login_to_fav: 'Vous devez être connectés pour avoir une liste de favoris'
   }
 }

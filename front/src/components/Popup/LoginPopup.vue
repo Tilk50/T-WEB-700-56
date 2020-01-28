@@ -30,7 +30,7 @@
     <!-- Notice v-close-popup -->
     <q-card-actions align="center">
       <q-btn :label="$t('labels.sign_in')" color="info" v-close-popup @click="signin()"/>
-      <q-btn :label="$t('labels.login')" type="submit" color="primary" icon="send" @click="login()"/>
+      <q-btn :label="$t('labels.login')" type="submit" color="primary" icon="send" @click="login()" :disable="!goodData"/>
       <q-btn icon="close" :label="$t('labels.cancel')" v-close-popup/>
     </q-card-actions>
   </q-card>
@@ -53,16 +53,25 @@ export default {
     login () {
       this.$axios({
         method: 'post',
-        url: 'http://localhost:3000/api/sign-up',
+        url: 'http://localhost:3000/api/sign-in',
         data: {
-          user: {
-            email: this.email,
-            password: this.password
-          }
+          email: this.mail,
+          password: this.pwd
         }
-      }).then(function (response) {
-        console.log(response)
+      }).then((response) => {
+        // Test if the response status is good
+        if (response.status === 200) {
+          // Setting the token in localStorage
+          this.$q.localStorage.set('jwt', response.data.jwt)
+          // Emit to the parent componant that we avec sign in
+          this.$root.$emit('user-logged')
+        }
       })
+    }
+  },
+  computed: {
+    goodData () {
+      return this.mail !== '' && this.pwd !== ''
     }
   }
 }

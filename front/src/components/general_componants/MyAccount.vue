@@ -5,7 +5,7 @@
       </q-card-section>
       <q-separator/>
       <q-card-section v-if="showAccountInfo">
-        <q-btn color="negative">{{$t('labels.log_out')}}</q-btn>
+        <q-btn color="negative" @click="logout()">{{$t('labels.log_out')}}</q-btn>
       </q-card-section>
       <q-card-section v-else class="q-pa-md q-gutter-sm">
         <q-btn
@@ -36,7 +36,7 @@
         transition-show="slide-up"
         transition-hide="slide-down"
       >
-        <signin-popup/>
+        <signin-popup v-on:user-login="login()"/>
       </q-dialog>
     </q-card>
 </template>
@@ -55,7 +55,7 @@ export default {
     }
   },
   mounted () {
-    this.showAccountInfo = (this.$q.localStorage.has('account') && this.$q.localStorage.getItem('account') !== null)
+    this.showAccountInfo = (this.$q.localStorage.has('jwt') && this.$q.localStorage.getItem('jwt') !== null)
   },
   methods: {
     /****
@@ -64,7 +64,24 @@ export default {
     signin () {
       this.showConnexionDialog = false
       this.showCreateAccountDialog = true
+    },
+    login () {
+      this.showConnexionDialog = true
+      this.showCreateAccountDialog = false
+    },
+    isUserLogged () {
+      this.showCreateAccountDialog = false
+      this.showConnexionDialog = false
+    },
+    logout () {
+      // Remove localStorage
+      this.$q.localStorage.remove('jwt')
+      // Emit that user have logout
+      this.$root.$emit('user-logout')
     }
+  },
+  created () {
+    this.$root.$on('user-logged', this.isUserLogged)
   }
 }
 </script>

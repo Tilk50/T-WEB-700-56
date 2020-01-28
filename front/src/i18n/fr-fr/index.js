@@ -26,7 +26,8 @@ export default {
     title: 'Attention',
     no_search: 'Vous n\'avez pas renseignés de critères de recherche',
     enter_mail: 'Vous devez entrer votre addresse mail au bon format',
-    password_different: 'Les deux mots de passe doivent être identiques'
+    password_different: 'Les deux mots de passe doivent être identiques',
+    mail_already_use: 'Cette address mail correspond déjà à un compte'
   },
   labels: {
     close: 'Fermer',
@@ -48,5 +49,8 @@ export default {
     enter_mail_address: 'Entrez votre adresse mail',
     enter_password: 'Entrez votre mot de passe',
     password_confirm: 'Confirmez votre mot de passe'
+  },
+  messages: {
+    have_to_login_to_fav: 'Vous devez être connectés pour avoir une liste de favoris'
   }
 }

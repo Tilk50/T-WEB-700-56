@@ -1,23 +1,24 @@
 'use strict';
 
 const mongoose = require('mongoose');
-const config = require('config/package');
+const config = require('../../config/default');
 const boom = require("@hapi/boom");
-const User = require('../../schemas/UserSchema');
-const jwt = require('jsonwebtoken/package');
+const userSchema = require('../../schemas/UserSchema');
+const User = new mongoose.model('User', userSchema);
+const jwt = require('jsonwebtoken');
 
 const authenticator = {
-  isAuthenticated: async function (req, res, next) {
-      let token = req.headers.authorization.replace('Bearer', '');
-        jwt.verify(token, config.secretKey, async  function (err, decoded) {
+  isAuthenticated: function (req, res, next) {
+      let token = req.headers.authorization.replace('Bearer ', '');
+        jwt.verify(token, config.secretKey, function (err, decoded) {
            if (err) {
                return next(boom.forbidden("Invalid token"))
            } else {
-               await User.findById(decoded._id, "-password", function (err, user) {
+               User.findById(decoded.id, "-password", function (err, user) {
                     if (err) return next(boom.badRequest("User not found"));
                     req.currentUser = user;
                     next();
-               })
+               });
            }
         });
   },
@@ -32,3 +33,5 @@ const authenticator = {
       }
   }
 };
+
+module.exports = authenticator;

@@ -33,6 +33,7 @@
           </q-list>
         </q-btn-dropdown>
         <q-btn-dropdown
+          v-model="showMyAccount"
           flat
           icon="account_circle"
         >
@@ -76,7 +77,7 @@
         <q-item>
           <q-item-section>
             <div class="text-subtitle2">{{$t('global_page.drawer.tools.fav_title')}}</div>
-            <q-list>
+            <q-list v-if="isUserLogged">
               <q-item
                 class="raw"
                 v-for="fav in favs"
@@ -88,6 +89,9 @@
                 />
               </q-item>
             </q-list>
+            <q-item v-else>
+              <div>{{$t('messages.have_to_login_to_fav')}}</div>
+            </q-item>
           </q-item-section>
         </q-item>
       </q-list>
@@ -111,7 +115,9 @@ export default {
       langs: [],
       lang: this.$i18n.locale,
       search: '',
-      favs: []
+      favs: [],
+      showMyAccount: false,
+      isUserLogged: false
     }
   },
   watch: {
@@ -119,19 +125,37 @@ export default {
       // Test default local language
       this.$i18n.locale = lang.value
       this.loadLanguages()
-      console.log(lang)
       this.lang.label = this.$t(`global_page.languages.${lang.name}`)
     }
   },
   mounted () {
     this.loadLanguages()
-    this.favs = [
-      { name: 'bitcoin', label: 'Bitcoin' },
-      { name: 'fav2', label: 'Favoris 2' },
-      { name: 'fav3', label: 'Favoris 3' }
-    ]
+    // Test ig user is logged
+    if (this.$q.localStorage.has('jwt')) {
+      this.userLogged()
+    }
+  },
+  created () {
+    this.$root.$once('user-logged', this.userLogAction)
+    this.$root.$on('user-logout', this.userLogAction)
   },
   methods: {
+    userLogout () {
+      this.favs = []
+      this.isUserLogged = false
+    },
+    userLogged () {
+      this.isUserLogged = true
+      this.getFavList()
+    },
+    userLogAction () {
+      this.showMyAccount = false
+      if (this.$q.localStorage.has('jwt')) {
+        this.userLogged()
+      } else {
+        this.userLogout()
+      }
+    },
     loadLanguages () {
       this.langs = [
         {
@@ -156,6 +180,17 @@ export default {
     },
     goHome () {
       this.$router.push('/')
+    },
+    getFavList () {
+      this.$axios({
+        methods: 'get',
+        headers: {
+          Authorization: 'Bearer ' + this.$q.localStorage.getItem('jwt')
+        },
+        url: 'http://localhost:3000/api/user/getFavs'
+      }).then((response) => {
+        console.log(response.data)
+      })
     }
   },
   computed: {

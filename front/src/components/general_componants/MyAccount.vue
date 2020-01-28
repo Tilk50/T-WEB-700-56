@@ -36,7 +36,7 @@
         transition-show="slide-up"
         transition-hide="slide-down"
       >
-        <signin-popup/>
+        <signin-popup v-on:user-login="login()"/>
       </q-dialog>
     </q-card>
 </template>
@@ -64,6 +64,10 @@ export default {
     signin () {
       this.showConnexionDialog = false
       this.showCreateAccountDialog = true
+    },
+    login () {
+      this.showConnexionDialog = true
+      this.showCreateAccountDialog = false
     },
     isUserLogged () {
       this.showCreateAccountDialog = false

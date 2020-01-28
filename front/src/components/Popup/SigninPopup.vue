@@ -81,6 +81,7 @@
     <!-- Notice v-close-popup -->
     <q-card-actions align="center">
       <q-btn :label="$t('labels.validate')" type="submit" color="primary" icon="send" @click="signin()" :disable="!goodData"/>
+      <q-btn :label="$t('labels.login')" color="info" v-close-popup @click="login()"/>
       <q-btn icon="close" :label="$t('labels.cancel')" v-close-popup/>
     </q-card-actions>
   </q-card>
@@ -143,6 +144,9 @@ export default {
           }
         })
       }
+    },
+    login () {
+      this.$emit('user-login')
     }
   },
   computed: {

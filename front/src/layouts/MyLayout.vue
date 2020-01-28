@@ -74,10 +74,10 @@
           </q-item-section>
         </q-item>
         <!-- Fav list -->
-        <q-item v-if="isUserLogged">
+        <q-item>
           <q-item-section>
             <div class="text-subtitle2">{{$t('global_page.drawer.tools.fav_title')}}</div>
-            <q-list>
+            <q-list v-if="isUserLogged">
               <q-item
                 class="raw"
                 v-for="fav in favs"
@@ -89,6 +89,9 @@
                 />
               </q-item>
             </q-list>
+            <q-item v-else>
+              <div>{{$t('messages.have_to_login_to_fav')}}</div>
+            </q-item>
           </q-item-section>
         </q-item>
       </q-list>
@@ -127,27 +130,23 @@ export default {
   },
   mounted () {
     this.loadLanguages()
-    this.favs = [
-      { name: 'bitcoin', label: 'Bitcoin' },
-      { name: 'fav2', label: 'Favoris 2' },
-      { name: 'fav3', label: 'Favoris 3' }
-    ]
     // Test ig user is logged
     if (this.$q.localStorage.has('jwt')) {
-      this.isUserLogged = true
+      this.userLogged()
     }
   },
   created () {
-    this.$root.$on('user-logged', this.userLogAction)
+    this.$root.$once('user-logged', this.userLogAction)
     this.$root.$on('user-logout', this.userLogAction)
   },
   methods: {
     userLogout () {
+      this.favs = []
       this.isUserLogged = false
     },
     userLogged () {
       this.isUserLogged = true
-      // Todo => Get the favorite liste
+      this.getFavList()
     },
     userLogAction () {
       this.showMyAccount = false
@@ -181,6 +180,17 @@ export default {
     },
     goHome () {
       this.$router.push('/')
+    },
+    getFavList () {
+      this.$axios({
+        methods: 'get',
+        headers: {
+          Authorization: 'Bearer ' + this.$q.localStorage.getItem('jwt')
+        },
+        url: 'http://localhost:3000/api/user/getFavs'
+      }).then((response) => {
+        console.log(response.data)
+      })
     }
   },
   computed: {

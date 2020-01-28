@@ -49,5 +49,8 @@ export default {
     enter_mail_address: 'Entrez votre adresse mail',
     enter_password: 'Entrez votre mot de passe',
     password_confirm: 'Confirmez votre mot de passe'
+  },
+  messages: {
+    have_to_login_to_fav: 'Vous devez être connectés pour avoir une liste de favoris'
   }
 }

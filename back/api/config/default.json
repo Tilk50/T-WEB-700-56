@@ -5,5 +5,6 @@
     "dbname": "countOfMoneydb",
     "host": "localhost",
     "port": 27017
-  }
+  },
+  "cointMarketKey": "60dd1026-7efd-40df-a056-2a8afa82ace9"
 }

@@ -16,6 +16,7 @@
             type="email"
             :error-message="$t('errors.enter_mail')"
             :error="!goodMail"
+            @blur="checkEmail()"
           />
           <q-input
             ref="pwd1"
@@ -94,10 +95,14 @@ export default {
       pwd1: '',
       pwd2: '',
       isPwd1: true,
-      isPwd2: true
+      isPwd2: true,
+      isUsedMail: false
     }
   },
   methods: {
+    /**
+     * Function to send the form and create an account
+     */
     signin () {
       this.$axios({
         method: 'post',
@@ -109,9 +114,35 @@ export default {
             confirmPassword: this.pwd2
           }
         }
-      }).then(function (response) {
+      }).then((response) => {
         console.log(response)
       })
+    },
+    /**
+     * Function to test is the mail address is already used
+     */
+    checkEmail () {
+      if (this.goodMail) {
+        this.$axios({
+          method: 'post',
+          url: 'http://localhost:3000/api/test-mail',
+          data: {
+            email: this.mail
+          }
+        }).then((response) => {
+          if (response.data.status === 'Error') {
+            this.$q.notify({
+              icon: 'report_problem',
+              color: 'warning',
+              message: this.$t('errors.mail_already_use'),
+              position: 'top-right'
+            })
+            this.isUsedMail = true
+          } else {
+            this.isUsedMail = false
+          }
+        })
+      }
     }
   },
   computed: {
@@ -141,7 +172,7 @@ export default {
       return this.pwd1 === this.pwd2
     },
     goodData () {
-      return this.goodMail && this.goodPassword && this.samePassword
+      return this.goodMail && this.goodPassword && this.samePassword && !this.isUsedMail
     }
   }
 }

@@ -35,10 +35,14 @@ const importData = function (req, res, next) {
                 if (crypto == null) {
                    createCrypto(element);
                } else {
-                    
+                   updateCrypto(element, crypto);
                }
             });
         });
+        res.json({
+            status: "success",
+            message: "Data updated"
+        })
     });
 };
 
@@ -62,6 +66,22 @@ const createCrypto = function (element) {
             ]
         });
     });
+};
+
+const updateCrypto = function (element, crypto) {
+  Price.create({
+      price: element.quote.EUR.price
+  }, function (err, price) {
+      // Update datas for crypto
+      crypto.price = element.quote.EUR.price;
+      crypto.last_update = element.last_update;
+      crypto.percent_change_1H = element.quote.EUR.percent_change_1h;
+      crypto.percent_change_24H = element.quote.EUR.percent_change_24h;
+      crypto.percent_change_7D = element.quote.EUR.percent_change_7d;
+      crypto.market_cap = element.quote.EUR.market_cap;
+      crypto.history.push(price._id);
+      crypto.save();
+  });
 };
 
 module.exports = importData;

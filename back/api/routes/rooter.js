@@ -7,6 +7,7 @@ const auth = require('../helpers/security/authenticator');
 //Import different controllers
 const securityController = require('../controllers/security');
 const userController = require('../controllers/user');
+const dataController = require('../controllers/data');
 
 
 /**
@@ -25,5 +26,9 @@ router.post('/test-mail', securityController.test_mail);
  */
 router.get('/user/getFavs', auth.isAuthenticated, userController.get_favs);
 
+/**
+ * Routes to import data from the api
+ */
+router.get('/importData', dataController.import_data);
 
 module.exports = router;

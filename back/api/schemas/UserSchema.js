@@ -19,7 +19,7 @@ const userSchema = new Schema({
     favorites: [
         {
             type: Schema.Types.ObjectId,
-            ref: "Crypto"
+            ref: "cryptos"
         }
     ],
     creationDate: {
@@ -35,7 +35,7 @@ userSchema.pre('save', function (next) {
     const user = this;
     if (!user.isModified('password')) return next();
 
-    this.password = bcrypt.hashSync(this.password, saltRounds)
+    this.password = bcrypt.hashSync(this.password, saltRounds);
     next();
 });
 

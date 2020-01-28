@@ -1,6 +1,7 @@
 <template>
   <q-page class="flex flex-center">
     <img alt="Quasar logo" src="~assets/quasar-logo-full.svg">
+    <q-btn @click="loadData()"> loadData</q-btn>
     <!-- Modal definition -->
     <q-dialog
       v-model="errorDialog"
@@ -31,6 +32,12 @@ export default {
     }
   },
   methods: {
+    loadData () {
+      this.$axios({
+        method: 'get',
+        url: 'http://localhost:3000/api/importData'
+      })
+    },
     closeDialog () {
       // Remove the error message
       this.$q.localStorage.remove('error')

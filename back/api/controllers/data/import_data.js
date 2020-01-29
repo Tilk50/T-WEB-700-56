@@ -16,7 +16,7 @@ const importData = function (req, res, next) {
         uri: 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest',
         qs: {
             'start': '1',
-            'limit': '3',
+            'limit': '100',
             'convert': 'EUR'
         },
         headers: {
@@ -74,7 +74,7 @@ const updateCrypto = function (element, crypto) {
   }, function (err, price) {
       // Update datas for crypto
       crypto.price = element.quote.EUR.price;
-      crypto.last_update = element.last_update;
+      crypto.last_update = Date.now();
       crypto.percent_change_1H = element.quote.EUR.percent_change_1h;
       crypto.percent_change_24H = element.quote.EUR.percent_change_24h;
       crypto.percent_change_7D = element.quote.EUR.percent_change_7d;

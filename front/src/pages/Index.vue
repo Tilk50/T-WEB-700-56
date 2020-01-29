@@ -1,7 +1,7 @@
 <template>
   <q-page>
     <div class="row">
-      <crypto-list class="col-12 q-ma-md"/>
+      <crypto-list class="col-10 offset-1 q-ma-md"/>
     </div>
     <!-- Modal definition -->
     <q-dialog

@@ -44,7 +44,12 @@ export default {
     password_number: 'Le mot de passe contient au moins un chiffre',
     password_special: 'Le mot de passe contient au moins un caractère spécial',
     validate: 'Valider',
-    crypto_list: 'Liste des monnaies'
+    crypto_list: 'Liste des monnaies',
+    crypto_object: {
+      name: 'Nom',
+      symbol: 'Symbole',
+      actual_price: 'Prix actuel (en €)'
+    }
   },
   hints: {
     enter_mail_address: 'Entrez votre adresse mail',

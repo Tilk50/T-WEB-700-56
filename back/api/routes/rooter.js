@@ -8,11 +8,7 @@ const auth = require('../helpers/security/authenticator');
 const securityController = require('../controllers/security');
 const userController = require('../controllers/user');
 const dataController = require('../controllers/data');
-
-
-/**
- * Route definition
- **/
+const cryptoController = require('../controllers/crypto');
 
 /**
  * Routes for login and account creation
@@ -20,6 +16,11 @@ const dataController = require('../controllers/data');
 router.post('/sign-in', securityController.sign_in);
 router.post('/sign-up', securityController.sign_up);
 router.post('/test-mail', securityController.test_mail);
+
+/**
+ * Routes to manage crypto
+ */
+router.get('/cryptos/', cryptoController.list);
 
 /**
  * Routes for User information

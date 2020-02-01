@@ -1,7 +1,8 @@
 <template>
-  <q-page class="flex flex-center">
-    <img alt="Quasar logo" src="~assets/quasar-logo-full.svg">
-    <q-btn @click="loadData()"> loadData</q-btn>
+  <q-page>
+    <div class="row">
+      <crypto-list class="col-10 offset-1 q-ma-md"/>
+    </div>
     <!-- Modal definition -->
     <q-dialog
       v-model="errorDialog"
@@ -24,8 +25,10 @@
 </template>
 
 <script>
+import CryptoList from '../components/cryptoComponant/cryptoList'
 export default {
   name: 'PageIndex',
+  components: { CryptoList },
   data () {
     return {
       errorDialog: false

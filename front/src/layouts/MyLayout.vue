@@ -111,13 +111,14 @@ export default {
   components: { MyAccount },
   data () {
     return {
-      leftDrawerOpen: false,
+      leftDrawerOpen: true,
       langs: [],
       lang: this.$i18n.locale,
       search: '',
       favs: [],
       showMyAccount: false,
-      isUserLogged: false
+      isUserLogged: false,
+      showAdminPanel: false
     }
   },
   watch: {
@@ -143,10 +144,12 @@ export default {
     userLogout () {
       this.favs = []
       this.isUserLogged = false
+      this.showAdminPanel = false
     },
     userLogged () {
       this.isUserLogged = true
       this.getFavList()
+      // Test if the user is Admin
     },
     userLogAction () {
       this.showMyAccount = false

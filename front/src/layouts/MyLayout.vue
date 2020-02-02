@@ -144,7 +144,7 @@ export default {
     }
   },
   created () {
-    this.$root.$once('user-logged', this.userLogAction)
+    this.$root.$on('user-logged', this.userLogAction)
     this.$root.$on('user-logout', this.userLogAction)
   },
   methods: {

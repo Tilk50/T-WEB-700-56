@@ -26,7 +26,6 @@ const list = function (req, res, next) {
           .exec(function(err, result) {
               if (err) return next(boom.internal("no data aviable"));
               // Return data
-              console.log(totalRow);
               res.json({list: result, totalRow: totalRow});
           });
     });

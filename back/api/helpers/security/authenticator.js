@@ -23,14 +23,12 @@ const authenticator = {
         });
   },
 
-  isAdmin: function () {
-      return (req, res, next) => {
-          if(!req.currentUser.admin) {
-              return next(boom.forbidden("Permission denied"));
-          } else {
-              next();
-          }
-      }
+  isAdmin: function (req, res, next) {
+        if(!req.currentUser.admin) {
+          return next(boom.forbidden("Permission denied"));
+        } else {
+        next();
+    }
   }
 };
 

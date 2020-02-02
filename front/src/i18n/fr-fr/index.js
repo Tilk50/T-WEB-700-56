@@ -29,7 +29,8 @@ export default {
     no_search: 'Vous n\'avez pas renseignés de critères de recherche',
     enter_mail: 'Vous devez entrer votre addresse mail au bon format',
     password_different: 'Les deux mots de passe doivent être identiques',
-    mail_already_use: 'Cette address mail correspond déjà à un compte'
+    mail_already_use: 'Cette address mail correspond déjà à un compte',
+    unauthorized: 'Attention, vous n\'êtes pas autorisé à accéder à cette fonctionnalisté'
   },
   labels: {
     close: 'Fermer',

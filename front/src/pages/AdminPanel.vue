@@ -36,6 +36,12 @@ export default {
     return {
       tab: 'crypto'
     }
+  },
+  mounted () {
+    if (!this.$q.localStorage.has('admin') || !this.$q.localStorage.getItem('admin')) {
+      this.$router.push('/')
+      this.$q.localStorage.set('error', this.$t('errors.unauthorized'))
+    }
   }
 }
 </script>

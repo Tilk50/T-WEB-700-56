@@ -103,7 +103,6 @@ export default {
           filter: this.filter
         }
       }).then((response) => {
-        console.log(response)
         this.data = response.data.list
         this.pagination.rowsNumber = response.data.totalRow
       })

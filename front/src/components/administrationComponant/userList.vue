@@ -124,7 +124,7 @@ export default {
           headers: {
             Authorization: 'Bearer ' + this.$q.localStorage.getItem('jwt')
           },
-          url: 'http://localhost:3000/api/users/' + row._id
+          url: 'http://localhost:3000/api/admin/user/' + row._id
         }).then(() => {
           this.loadData()
         })

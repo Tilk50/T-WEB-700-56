@@ -63,6 +63,8 @@ export default {
         if (response.status === 200) {
           // Setting the token in localStorage
           this.$q.localStorage.set('jwt', response.data.jwt)
+          // Set in local Storage the user role
+          this.$q.localStorage.set('admin', response.data.admin)
           // Emit to the parent componant that we avec sign in
           this.$root.$emit('user-logged')
         }

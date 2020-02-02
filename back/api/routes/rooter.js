@@ -7,7 +7,7 @@ const auth = require('../helpers/security/authenticator');
 //Import different controllers
 const securityController = require('../controllers/security');
 const userController = require('../controllers/user');
-const dataController = require('../controllers/data');
+const adminController = require('../controllers/administrationTools');
 const cryptoController = require('../controllers/crypto');
 
 /**
@@ -27,9 +27,13 @@ router.get('/cryptos/', cryptoController.list);
  */
 router.get('/user/getFavs', auth.isAuthenticated, userController.get_favs);
 
+
 /**
- * Routes to import data from the api
+ * Routes for admin user
  */
-router.get('/importData', dataController.import_data);
+router.delete('/admin/user/:id', auth.isAuthenticated, auth.isAdmin, userController.delete);
+router.get('/admin/user', auth.isAuthenticated, auth.isAdmin, userController.list);
+router.get('/admin/importData', auth.isAuthenticated, auth.isAdmin, adminController.import_data);
+router.post('/admin/hide-crypto/:id', auth.isAuthenticated, auth.isAdmin, adminController.hideCrypto);
 
 module.exports = router;

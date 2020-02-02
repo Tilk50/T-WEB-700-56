@@ -15,6 +15,13 @@
         <q-toolbar-title>
           {{ $t('global_page.title') }}
         </q-toolbar-title>
+        <q-btn
+          v-if="showAdminPanel"
+          :label="$t('global_page.label.admin_panel')"
+          flat
+          icon="build"
+          @click="goAdminPanel"
+        ></q-btn>
         <q-btn-dropdown
           stretch
           flat
@@ -105,19 +112,20 @@
 
 <script>
 
-import MyAccount from '../components/general_componants/MyAccount'
+import MyAccount from '../components/generalComponants/MyAccount'
 export default {
   name: 'MyLayout',
   components: { MyAccount },
   data () {
     return {
-      leftDrawerOpen: false,
+      leftDrawerOpen: true,
       langs: [],
       lang: this.$i18n.locale,
       search: '',
       favs: [],
       showMyAccount: false,
-      isUserLogged: false
+      isUserLogged: false,
+      showAdminPanel: false
     }
   },
   watch: {
@@ -136,17 +144,20 @@ export default {
     }
   },
   created () {
-    this.$root.$once('user-logged', this.userLogAction)
+    this.$root.$on('user-logged', this.userLogAction)
     this.$root.$on('user-logout', this.userLogAction)
   },
   methods: {
     userLogout () {
       this.favs = []
       this.isUserLogged = false
+      this.showAdminPanel = false
     },
     userLogged () {
       this.isUserLogged = true
       this.getFavList()
+      // Test if the user is Admin
+      this.showAdminPanel = this.$q.localStorage.getItem('admin')
     },
     userLogAction () {
       this.showMyAccount = false
@@ -189,8 +200,11 @@ export default {
         },
         url: 'http://localhost:3000/api/user/getFavs'
       }).then((response) => {
-        console.log(response.data)
+        // TODO => Implement the api response
       })
+    },
+    goAdminPanel () {
+      this.$router.push('/admin-panel')
     }
   },
   computed: {

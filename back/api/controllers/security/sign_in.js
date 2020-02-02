@@ -13,7 +13,7 @@ const signIn = function (req, res, next) {
         if (err || user == null) return next(boom.notFound("User not Found"));
         if (bcrypt.compareSync(req.body.password,  user.password)) {
             const token = jwt.sign({id: user._id}, config.secretKey, {expiresIn: '2h'});
-            res.json({ status:"success", message: "You logged success", jwt: token });
+            res.json({ status:"success", message: "You logged success", jwt: token, admin: user.admin });
         } else {
             return next(boom.badRequest("Invalid credentials"));
         }

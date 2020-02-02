@@ -29,7 +29,7 @@ const userSchema = new Schema({
 });
 
 /**
- * Hash paswword
+ * Hash password
  */
 userSchema.pre('save', function (next) {
     const user = this;

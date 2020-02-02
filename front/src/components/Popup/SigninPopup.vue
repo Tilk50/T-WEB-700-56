@@ -116,6 +116,7 @@ export default {
           }
         }
       }).then((response) => {
+        this.$root.$emit('user-create')
         console.log(response)
       })
     },

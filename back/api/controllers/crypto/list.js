@@ -40,6 +40,10 @@ function buildFilter(queryFilter) {
     if (typeof queryFilter.symbol !== 'undefined' && queryFilter.symbol !== '') {
       filter.symbol = new RegExp(queryFilter.symbol, 'i');
     }
+
+    if (typeof queryFilter.show_in_list !== "undefined" && queryFilter.show_in_list) {
+        filter.show_in_list = true;
+    }
     return filter
 }
 

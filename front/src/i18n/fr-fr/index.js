@@ -22,7 +22,12 @@ export default {
       account: 'Mon compte',
       admin_panel: 'Panneau de configuration',
       load_data: 'Rafraichir les données',
-      users: 'Utilisateurs'
+      users: 'Utilisateurs',
+      actions: 'Actions',
+      warning: 'Attention !'
+    },
+    confirm_dialog: {
+      delete_user: 'Êtes vous vraiment sur de vouloir supprimer cet utilisateur ?'
     }
   },
   errors: {

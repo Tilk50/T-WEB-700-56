@@ -37,7 +37,14 @@
               v-for="(col2, index2) in columns"
               :key="index2"
             >
-              <div>{{props.row[col2.name]}}</div>
+              <div v-if="col2.name === 'actions'">
+                <q-btn
+                  color="negative"
+                  icon="delete"
+                  @click="deleteUser(props.row)"
+                />
+              </div>
+              <div v-else>{{props.row[col2.name]}}</div>
             </q-td>
           </q-tr>
         </template>
@@ -55,7 +62,8 @@ export default {
       data: [],
       columns: [
         { name: 'email', label: this.$t('labels.user_object.email'), field: 'email', sortable: true, search: true },
-        { name: 'admin', label: this.$t('labels.user_object.is_admin'), field: 'admin', sortable: true, search: true }
+        { name: 'admin', label: this.$t('labels.user_object.is_admin'), field: 'admin', sortable: true, search: false },
+        { name: 'actions', label: this.$t('global_page.label.actions'), field: 'actions', sortable: false, search: false }
       ],
       pagination: {
         sortBy: 'email',
@@ -105,6 +113,22 @@ export default {
     },
     getRow (row) {
       console.log(row)
+    },
+    deleteUser (row) {
+      this.$q.dialog({
+        title: this.$t('global_page.label.warning'),
+        message: this.$t('global_page.confirm_dialog.delete_user')
+      }).onOk(() => {
+        this.$axios({
+          method: 'delete',
+          headers: {
+            Authorization: 'Bearer ' + this.$q.localStorage.getItem('jwt')
+          },
+          url: 'http://localhost:3000/api/users/' + row._id
+        }).then(() => {
+          this.loadData()
+        })
+      })
     }
   },
   watch: {

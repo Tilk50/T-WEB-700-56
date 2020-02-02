@@ -200,7 +200,7 @@ export default {
         },
         url: 'http://localhost:3000/api/user/getFavs'
       }).then((response) => {
-        console.log(response.data)
+        // TODO => Implement the api response
       })
     },
     goAdminPanel () {

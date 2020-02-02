@@ -88,6 +88,10 @@ export default {
   },
   methods: {
     loadData () {
+      // Set default filter to display or no the hided crypto
+      if (typeof this.admin === 'undefined' || this.admin === false) {
+        this.filter.show_in_list = true
+      }
       this.$axios({
         method: 'get',
         url: 'http://localhost:3000/api/cryptos',
@@ -99,6 +103,7 @@ export default {
           filter: this.filter
         }
       }).then((response) => {
+        console.log(response)
         this.data = response.data.list
         this.pagination.rowsNumber = response.data.totalRow
       })
@@ -113,9 +118,6 @@ export default {
       this.pagination.descending = descending
       this.pagination.rowsNumber = rowsNumber
       // Test if user is admin to display all row or not
-      if (!this.admin) {
-        this.filter.show_in_list = false
-      }
       this.loadData()
     },
     getRow (row) {

@@ -15,14 +15,14 @@
       </q-tabs>
       <q-separator/>
       <!-- Panels definition -->
-      <q-tab-pannels
+      <q-tab-panels
         v-model="tab"
         animated
       >
         <q-tab-panel name="crypto">
           <crypo-amdin/>
         </q-tab-panel>
-      </q-tab-pannels>
+      </q-tab-panels>
     </q-card>
   </q-page>
 </template>

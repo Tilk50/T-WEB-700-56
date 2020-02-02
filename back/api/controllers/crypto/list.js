@@ -6,29 +6,30 @@ const Crypto = new mongoose.model('crypto', cryptoSchema);
 const boom = require('@hapi/boom');
 
 const list = function (req, res, next) {
-    let count = 0;
+    var totalRow = 0;
     let filter = buildFilter(JSON.parse(req.query.filter));
     // This query is used to get the
     Crypto.find(
         filter
     ).exec(function (err, result) {
         if (err) return next(boom.internal("no data aviable"));
-       count = result.length;
-    });
+        totalRow = result.length;
 
-    // This query is used to return data
-    Crypto
-      .find(
-          filter
-      )
-      .limit(parseInt(req.query.rowsRequest))
-      .sort([[req.query.sortBy, parseInt(req.query.desc)]])
-      .skip(parseInt(req.query.startRow))
-      .exec(function(err, result) {
-         if (err) return next(boom.internal("no data aviable"));
-         // Return data
-          res.json({list: result, totalRow: count});
-      });
+        // This query is used to get
+        Crypto
+          .find(
+            filter
+          )
+          .limit(parseInt(req.query.rowsRequest))
+          .sort([[req.query.sortBy, parseInt(req.query.desc)]])
+          .skip(parseInt(req.query.startRow))
+          .exec(function(err, result) {
+              if (err) return next(boom.internal("no data aviable"));
+              // Return data
+              console.log(totalRow);
+              res.json({list: result, totalRow: totalRow});
+          });
+    });
 };
 
 function buildFilter(queryFilter) {

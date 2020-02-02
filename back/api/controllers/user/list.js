@@ -17,23 +17,22 @@ const list = function (req, res, next) {
           return next(boom.internal("Internal server error"));
       }
       count = result.length;
+      // This query is used to get the data
+      User
+          .find((filter))
+          .limit(parseInt(req.query.rowsRequest))
+          .sort([[req.query.sortBy, parseInt(req.query.desc)]])
+          .skip(parseInt(req.query.startRow))
+          .select('-password')
+          .exec(function(err, result) {
+              if (err) {
+                  console.log(err)
+                  return next(boom.internal("Internal server error"));
+              }
+              // Return response to front
+              res.json({list: result, totalRow: count});
+          });
   });
-
-  // This query is used to get the data
-  User
-      .find((filter))
-      .limit(parseInt(req.query.rowsRequest))
-      .sort([[req.query.sortBy, parseInt(req.query.desc)]])
-      .skip(parseInt(req.query.startRow))
-      .select('-password')
-      .exec(function(err, result) {
-          if (err) {
-              console.log(err)
-              return next(boom.internal("Internal server error"));
-          }
-          // Return response to front
-          res.json({list: result, totalRow: count});
-      });
 };
 
 function buildFilter(queryFiler) {

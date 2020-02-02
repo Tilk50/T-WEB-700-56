@@ -15,6 +15,13 @@
         <q-toolbar-title>
           {{ $t('global_page.title') }}
         </q-toolbar-title>
+        <q-btn
+          v-if="showAdminPanel"
+          :label="$t('global_page.label.admin_panel')"
+          flat
+          icon="build"
+          @click="goAdminPanel"
+        ></q-btn>
         <q-btn-dropdown
           stretch
           flat
@@ -105,7 +112,7 @@
 
 <script>
 
-import MyAccount from '../components/general_componants/MyAccount'
+import MyAccount from '../components/generalComponants/MyAccount'
 export default {
   name: 'MyLayout',
   components: { MyAccount },
@@ -150,6 +157,7 @@ export default {
       this.isUserLogged = true
       this.getFavList()
       // Test if the user is Admin
+      this.showAdminPanel = this.$q.localStorage.getItem('admin')
     },
     userLogAction () {
       this.showMyAccount = false
@@ -194,6 +202,9 @@ export default {
       }).then((response) => {
         console.log(response.data)
       })
+    },
+    goAdminPanel () {
+      this.$router.push('/admin-panel')
     }
   },
   computed: {

@@ -1,0 +1,45 @@
+<template>
+  <q-page>
+    <q-card>
+      <!-- Tabs definition -->
+      <q-tabs
+        v-model="tab"
+        dense
+        class="text-grey"
+        active-color="primary"
+        indicator-color="primary"
+        align="justify"
+        narrow-indicator
+      >
+        <q-tab name="crypto" :label="$t('global_page.label.crypto_monnaie')"/>
+      </q-tabs>
+      <q-separator/>
+      <!-- Panels definition -->
+      <q-tab-pannels
+        v-model="tab"
+        animated
+      >
+        <q-tab-panel name="crypto">
+          <crypo-amdin/>
+        </q-tab-panel>
+      </q-tab-pannels>
+    </q-card>
+  </q-page>
+</template>
+
+<script>
+import CrypoAmdin from '../components/administrationComponant/crypoAmdin'
+export default {
+  name: 'AdminPanel',
+  components: { CrypoAmdin },
+  data () {
+    return {
+      tab: 'crypto'
+    }
+  }
+}
+</script>
+
+<style scoped>
+
+</style>

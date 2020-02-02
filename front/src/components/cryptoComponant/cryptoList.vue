@@ -37,7 +37,11 @@
                 v-for="(col2, index2) in columns"
                 :key="index2"
               >
-                <div>{{props.row[col2.name]}}</div>
+                <q-toggle v-if="col2.name === 'show_in_list'"
+                  v-model="props.row.show_in_list"
+                  @click.native="showOrHide(props.row)"
+                />
+                <div v-else>{{props.row[col2.name]}}</div>
               </q-td>
             </q-tr>
           </template>
@@ -50,6 +54,7 @@
 let timerWatch = null
 export default {
   name: 'cryptoList',
+  props: ['admin'],
   data () {
     return {
       data: [],
@@ -71,6 +76,15 @@ export default {
   mounted () {
     // Load data
     this.loadData()
+    // Test if the user if admin
+    if (typeof this.admin !== 'undefined' && this.admin) {
+      this.columns.push({
+        name: 'show_in_list',
+        label: this.$t('labels.crypto_object.show_in_list'),
+        sortable: true,
+        search: false
+      })
+    }
   },
   methods: {
     loadData () {
@@ -98,10 +112,26 @@ export default {
       this.pagination.sortBy = sortBy
       this.pagination.descending = descending
       this.pagination.rowsNumber = rowsNumber
+      // Test if user is admin to display all row or not
+      if (!this.admin) {
+        this.filter.show_in_list = false
+      }
       this.loadData()
     },
     getRow (row) {
       console.log(row)
+    },
+    showOrHide (row) {
+      this.$axios({
+        method: 'post',
+        headers: {
+          Authorization: 'Bearer ' + this.$q.localStorage.getItem('jwt')
+        },
+        url: 'http://localhost:3000/api/admin/hide-crypto',
+        data: {
+          id: row._id
+        }
+      })
     }
   },
   watch: {

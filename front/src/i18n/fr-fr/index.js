@@ -19,7 +19,9 @@ export default {
     },
     label: {
       crypto_monnaie: 'CryptoMonnaie',
-      account: 'Mon compte'
+      account: 'Mon compte',
+      admin_panel: 'Panneau de configuration',
+      load_data: 'Rafraichir les données'
     }
   },
   errors: {
@@ -48,7 +50,8 @@ export default {
     crypto_object: {
       name: 'Nom',
       symbol: 'Symbole',
-      actual_price: 'Prix actuel (en €)'
+      actual_price: 'Prix actuel (en €)',
+      show_in_list: 'Afficher dans la liste'
     }
   },
   hints: {

@@ -105,6 +105,14 @@
     </q-drawer>
 
     <q-page-container>
+      <q-dialog
+        v-model="openIt"
+      >
+        <div>
+          <!-- Call the good modal -->
+          <crypto-modal :crypto_id="id" v-if="modalToOpen === 'crypto-modal'"/>
+        </div>
+      </q-dialog>
       <router-view />
     </q-page-container>
   </q-layout>
@@ -113,9 +121,10 @@
 <script>
 
 import MyAccount from '../components/generalComponants/MyAccount'
+import CryptoModal from '../components/Popup/cryptoModal'
 export default {
   name: 'MyLayout',
-  components: { MyAccount },
+  components: { CryptoModal, MyAccount },
   data () {
     return {
       leftDrawerOpen: true,
@@ -125,7 +134,10 @@ export default {
       favs: [],
       showMyAccount: false,
       isUserLogged: false,
-      showAdminPanel: false
+      showAdminPanel: false,
+      openIt: false,
+      modalToOpen: '',
+      id: null
     }
   },
   watch: {
@@ -146,8 +158,14 @@ export default {
   created () {
     this.$root.$on('user-logged', this.userLogAction)
     this.$root.$on('user-logout', this.userLogAction)
+    this.$root.$on('openModal', this.openModal)
   },
   methods: {
+    openModal (props) {
+      this.modalToOpen = props[0]
+      this.id = props[1]
+      this.openIt = true
+    },
     userLogout () {
       this.favs = []
       this.isUserLogged = false

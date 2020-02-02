@@ -128,7 +128,7 @@ export default {
       this.loadData()
     },
     getRow (row) {
-      console.log(row)
+      this.$root.$emit('openModal', ['crypto-modal', row._id])
     },
     showOrHide (row) {
       this.$axios({

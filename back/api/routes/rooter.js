@@ -31,6 +31,7 @@ router.get('/user/getFavs', auth.isAuthenticated, userController.get_favs);
 /**
  * Routes for admin user
  */
+router.delete('/admin/user/:id', auth.isAuthenticated, auth.isAdmin, userController.delete);
 router.get('/admin/user', auth.isAuthenticated, auth.isAdmin, userController.list);
 router.get('/admin/importData', auth.isAuthenticated, auth.isAdmin, adminController.import_data);
 router.post('/admin/hide-crypto/:id', auth.isAuthenticated, auth.isAdmin, adminController.hideCrypto);

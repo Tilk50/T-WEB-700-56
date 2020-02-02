@@ -10,8 +10,8 @@ const hideCrypto = function (req, res, next) {
        if (err || crypto == null) return next(boom.notFound("Crypto not found"));
        crypto.show_in_list = ! crypto.show_in_list;
        crypto.save();
+        res.json({message: "crypto Updated"});
     });
-    res.json({message: "ok boomer"});
 };
 
 module.exports = hideCrypto;

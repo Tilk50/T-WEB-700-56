@@ -127,10 +127,7 @@ export default {
         headers: {
           Authorization: 'Bearer ' + this.$q.localStorage.getItem('jwt')
         },
-        url: 'http://localhost:3000/api/admin/hide-crypto',
-        data: {
-          id: row._id
-        }
+        url: 'http://localhost:3000/api/admin/hide-crypto/' + row._id
       })
     }
   },

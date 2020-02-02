@@ -58,7 +58,7 @@ export default {
         { name: 'admin', label: this.$t('labels.user_object.is_admin'), field: 'admin', sortable: true, search: true }
       ],
       pagination: {
-        sortBy: 'name',
+        sortBy: 'email',
         descending: false,
         page: 1,
         rowsPerPage: 3,
@@ -76,6 +76,9 @@ export default {
       this.$axios({
         method: 'get',
         url: 'http://localhost:3000/api/admin/user',
+        headers: {
+          Authorization: 'Bearer ' + this.$q.localStorage.getItem('jwt')
+        },
         params: {
           startRow: (this.pagination.page - 1) * this.pagination.rowsPerPage,
           rowsRequest: this.pagination.rowsPerPage,

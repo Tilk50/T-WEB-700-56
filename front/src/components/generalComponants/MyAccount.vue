@@ -78,6 +78,7 @@ export default {
       this.$q.localStorage.remove('jwt')
       // Emit that user have logout
       this.$root.$emit('user-logout')
+      this.$router.push('/')
     }
   },
   created () {

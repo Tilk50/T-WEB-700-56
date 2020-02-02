@@ -21,6 +21,7 @@ router.post('/test-mail', securityController.test_mail);
  * Routes to manage crypto
  */
 router.get('/cryptos/', cryptoController.list);
+router.get('/cryptos/:id', cryptoController.get);
 
 /**
  * Routes for User information

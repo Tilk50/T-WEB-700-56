@@ -20,7 +20,7 @@ export default {
     loadData () {
       this.$axios({
         method: 'get',
-        url: 'http://localhost:3000/api/crypto/' + this.crypto_id
+        url: 'http://localhost:3000/api/cryptos/' + this.crypto_id
       }).then((response) => {
         console.log(response)
       })

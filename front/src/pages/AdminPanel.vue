@@ -1,6 +1,6 @@
 <template>
   <q-page>
-    <q-card>
+    <q-card class="q-pa-md">
       <!-- Tabs definition -->
       <q-tabs
         v-model="tab"
@@ -12,6 +12,7 @@
         narrow-indicator
       >
         <q-tab name="crypto" :label="$t('global_page.label.crypto_monnaie')"/>
+        <q-tab name="user" :label="$t('global_page.label.users')"/>
       </q-tabs>
       <q-separator/>
       <!-- Panels definition -->
@@ -20,7 +21,10 @@
         animated
       >
         <q-tab-panel name="crypto">
-          <crypo-amdin/>
+          <crypo-admin/>
+        </q-tab-panel>
+        <q-tab-panel name="user">
+          <user-admin/>
         </q-tab-panel>
       </q-tab-panels>
     </q-card>
@@ -28,10 +32,11 @@
 </template>
 
 <script>
-import CrypoAmdin from '../components/administrationComponant/crypoAmdin'
+import CrypoAdmin from '../components/administrationComponant/crypoAdmin'
+import UserAdmin from '../components/administrationComponant/userAdmin'
 export default {
   name: 'AdminPanel',
-  components: { CrypoAmdin },
+  components: { UserAdmin, CrypoAdmin },
   data () {
     return {
       tab: 'crypto'

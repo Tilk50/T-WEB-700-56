@@ -21,7 +21,8 @@ export default {
       crypto_monnaie: 'CryptoMonnaie',
       account: 'Mon compte',
       admin_panel: 'Panneau de configuration',
-      load_data: 'Rafraichir les données'
+      load_data: 'Rafraichir les données',
+      users: 'Utilisateurs'
     }
   },
   errors: {
@@ -48,11 +49,16 @@ export default {
     password_special: 'Le mot de passe contient au moins un caractère spécial',
     validate: 'Valider',
     crypto_list: 'Liste des monnaies',
+    user_list: 'Liste des utilisateurs',
     crypto_object: {
       name: 'Nom',
       symbol: 'Symbole',
       actual_price: 'Prix actuel (en €)',
       show_in_list: 'Afficher dans la liste'
+    },
+    user_object: {
+      email: 'E-mail',
+      is_admin: 'Est administrateur'
     }
   },
   hints: {

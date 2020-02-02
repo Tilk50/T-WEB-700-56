@@ -59,7 +59,10 @@ export default {
       name: 'Nom',
       symbol: 'Symbole',
       actual_price: 'Prix actuel (en €)',
-      show_in_list: 'Afficher dans la liste'
+      show_in_list: 'Afficher dans la liste',
+      percent_change_1H: 'Changement durant l\'heure (%)',
+      percent_change_24H: 'Changement durant la journée (%)',
+      percent_change_7D: 'Changement durant la semaine (%)'
     },
     user_object: {
       email: 'E-mail',

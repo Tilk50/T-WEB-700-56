@@ -41,6 +41,9 @@
                   v-model="props.row.show_in_list"
                   @click.native="showOrHide(props.row)"
                 />
+                <div v-else-if="col2.name === 'percent_change_1H' || col2.name === 'percent_change_24H' || col2.name === 'percent_change_7D'">
+                    <crypto-statut :cryptoChange="props.row[col2.name]"/>
+                </div>
                 <div v-else>{{props.row[col2.name]}}</div>
               </q-td>
             </q-tr>
@@ -51,9 +54,11 @@
 </template>
 
 <script>
+import CryptoStatut from './cryptoStatut'
 let timerWatch = null
 export default {
   name: 'cryptoList',
+  components: { CryptoStatut },
   props: ['admin'],
   data () {
     return {
@@ -61,7 +66,10 @@ export default {
       columns: [
         { name: 'name', label: this.$t('labels.crypto_object.name'), field: 'name', sortable: true, search: true },
         { name: 'symbol', label: this.$t('labels.crypto_object.symbol'), field: 'symbol', sortable: true, search: true },
-        { name: 'price', label: this.$t('labels.crypto_object.actual_price'), field: 'price', sortable: true, search: false }
+        { name: 'price', label: this.$t('labels.crypto_object.actual_price'), field: 'price', sortable: true, search: false },
+        { name: 'percent_change_1H', label: this.$t('labels.crypto_object.percent_change_1H'), sortable: true, search: false },
+        { name: 'percent_change_24H', label: this.$t('labels.crypto_object.percent_change_24H'), sortable: true, search: false },
+        { name: 'percent_change_7D', label: this.$t('labels.crypto_object.percent_change_7D'), sortable: true, search: false }
       ],
       pagination: {
         sortBy: 'name',

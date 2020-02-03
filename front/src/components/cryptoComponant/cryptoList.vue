@@ -132,7 +132,6 @@ export default {
   },
   methods: {
     loadData () {
-      console.log(this.filter)
       // Set default filter to display or no the hided crypto
       if (typeof this.admin === 'undefined' || this.admin === false) {
         this.filter.show_in_list = true

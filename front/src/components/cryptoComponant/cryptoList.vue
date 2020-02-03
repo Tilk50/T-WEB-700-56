@@ -23,6 +23,36 @@
                     <q-icon name="search"/>
                   </template>
                 </q-input>
+                <!-- Template to filter by the status -->
+                <div v-if="col.name === 'percent_change_1H' || col.name === 'percent_change_24H' || col.name === 'percent_change_7D'">
+                  <q-select
+                    filled
+                    v-model="filter[col.name]"
+                    :options="options"
+                    option-value="value"
+                    option-label="label"
+                    emit-value
+                    map-options
+                  >
+                    <!-- Template to display different options -->
+                    <template v-slot:option="scope">
+                      <q-item
+                        v-bind="scope.itemProps"
+                        v-on="scope.itemEvents"
+                      >
+                        <q-item-section v-if="scope.opt.icon" avatar>
+                          <q-icon
+                            :name="scope.opt.icon"
+                            :color="scope.opt.color"
+                          />
+                        </q-item-section>
+                        <q-item-section>
+                          <q-item-label v-html="scope.opt.label"/>
+                        </q-item-section>
+                      </q-item>
+                    </template>
+                  </q-select>
+                </div>
               </q-td>
             </q-tr>
           </template>
@@ -78,7 +108,13 @@ export default {
         rowsPerPage: 3,
         rowsNumber: 0
       },
-      filter: {}
+      filter: {},
+      options: [
+        { value: null, label: '-' },
+        { value: 'down', icon: 'trending_down', color: 'red', label: 'WALLAH C\'EST LA DECHE' },
+        { value: 'flat', icon: 'trending_flat', color: 'orange', label: 'COUSSI COUSSA' },
+        { value: 'up', icon: 'trending_up', color: 'green', label: 'POULOULOU CA GRIMPE' }
+      ]
     }
   },
   mounted () {

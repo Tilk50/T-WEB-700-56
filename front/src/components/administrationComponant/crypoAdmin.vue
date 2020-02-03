@@ -20,7 +20,10 @@ export default {
     refreshData () {
       this.$axios({
         method: 'get',
-        url: 'http://localhost:3000/api/admin/importData'
+        url: 'http://localhost:3000/api/admin/importData',
+        headers: {
+          Authorization: 'Bearer ' + this.$q.localStorage.getItem('jwt')
+        }
       }).then((response) => {
         console.log(response)
       })

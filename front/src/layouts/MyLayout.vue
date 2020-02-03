@@ -66,20 +66,6 @@
         <q-item>
           <h5>{{$t('global_page.drawer.tool_list_title')}}</h5>
         </q-item>
-        <!-- Search bar  -->
-        <q-item>
-          <q-item-section>
-            <div class="text-subtitle2">{{$t('global_page.drawer.tools.search_title')}}</div>
-            <q-input bottom-slots v-model="search" :label="$t('global_page.drawer.tools.search')" counter maxlength="12">
-              <template v-slot:append>
-                <q-icon v-if="search !== ''" name="close" @click="search = ''" class="cursor-pointer" />
-              </template>
-              <template v-slot:after>
-                <q-btn round dense flat icon="send" @click="sendSearch()" :disable="enableSearch"/>
-              </template>
-            </q-input>
-          </q-item-section>
-        </q-item>
         <!-- Fav list -->
         <q-item>
           <q-item-section>
@@ -105,6 +91,17 @@
     </q-drawer>
 
     <q-page-container>
+      <q-dialog
+        v-model="openIt"
+        :maximized="true"
+        transition-show="slide-up"
+        transition-hide="slide-down"
+      >
+        <div>
+          <!-- Call the good modal -->
+          <crypto-modal :crypto_id="id" v-if="modalToOpen === 'crypto-modal'"/>
+        </div>
+      </q-dialog>
       <router-view />
     </q-page-container>
   </q-layout>
@@ -113,9 +110,10 @@
 <script>
 
 import MyAccount from '../components/generalComponants/MyAccount'
+import CryptoModal from '../components/Popup/cryptoModal'
 export default {
   name: 'MyLayout',
-  components: { MyAccount },
+  components: { CryptoModal, MyAccount },
   data () {
     return {
       leftDrawerOpen: true,
@@ -125,7 +123,10 @@ export default {
       favs: [],
       showMyAccount: false,
       isUserLogged: false,
-      showAdminPanel: false
+      showAdminPanel: false,
+      openIt: false,
+      modalToOpen: '',
+      id: null
     }
   },
   watch: {
@@ -144,10 +145,23 @@ export default {
     }
   },
   created () {
+    // Set different listeners
+    this.$root.$on('close-modal', this.closeModal)
     this.$root.$on('user-logged', this.userLogAction)
     this.$root.$on('user-logout', this.userLogAction)
+    this.$root.$on('openModal', this.openModal)
   },
   methods: {
+    closeModal () {
+      this.modalToOpen = ''
+      this.id = null
+      this.openIt = false
+    },
+    openModal (props) {
+      this.modalToOpen = props[0]
+      this.id = props[1]
+      this.openIt = true
+    },
     userLogout () {
       this.favs = []
       this.isUserLogged = false
@@ -184,11 +198,6 @@ export default {
     changeLanguage (lang) {
       this.lang = lang
     },
-    sendSearch () {
-      // Set local storage
-      this.$q.localStorage.set('search', this.search)
-      this.$router.push('/search')
-    },
     goHome () {
       this.$router.push('/')
     },
@@ -205,11 +214,6 @@ export default {
     },
     goAdminPanel () {
       this.$router.push('/admin-panel')
-    }
-  },
-  computed: {
-    enableSearch () {
-      return this.search === ''
     }
   }
 }

@@ -5,7 +5,6 @@ const routes = [
     component: () => import('layouts/MyLayout.vue'),
     children: [
       { path: '', component: () => import('pages/Index.vue') },
-      { path: 'search', component: () => import('pages/Search.vue') },
       { path: 'admin-panel', component: () => import('pages/AdminPanel.vue') }
     ]
   }

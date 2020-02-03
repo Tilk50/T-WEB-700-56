@@ -9,6 +9,7 @@ const securityController = require('../controllers/security');
 const userController = require('../controllers/user');
 const adminController = require('../controllers/administrationTools');
 const cryptoController = require('../controllers/crypto');
+const priceController = require('../controllers/price');
 
 /**
  * Routes for login and account creation
@@ -21,6 +22,12 @@ router.post('/test-mail', securityController.test_mail);
  * Routes to manage crypto
  */
 router.get('/cryptos/', cryptoController.list);
+router.get('/cryptos/:id', cryptoController.get);
+
+/**
+ * Route to manage prices
+ */
+router.get('/price/get-from-crypto/:id', priceController.getForChart);
 
 /**
  * Routes for User information

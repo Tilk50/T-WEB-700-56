@@ -30,7 +30,6 @@
         <template v-slot:body="props">
           <q-tr
             :props="props"
-            @click.native="getRow(props.row)" class="cursor-pointer"
           >
             <q-td
               :auto-width="true"
@@ -110,9 +109,6 @@ export default {
       this.pagination.rowsNumber = rowsNumber
       // Test if user is admin to display all row or not
       this.loadData()
-    },
-    getRow (row) {
-      console.log(row)
     },
     deleteUser (row) {
       this.$q.dialog({

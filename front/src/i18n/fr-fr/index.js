@@ -55,11 +55,19 @@ export default {
     validate: 'Valider',
     crypto_list: 'Liste des monnaies',
     user_list: 'Liste des utilisateurs',
+    price_evolution: 'Evolution du prix (en €)',
+    hide_diagrams: 'Cacher les diagrames',
+    show_diagrams: 'Montrer les diagrames',
+    price_chart: 'Évolution du court de cette crypto monnaie',
     crypto_object: {
       name: 'Nom',
       symbol: 'Symbole',
       actual_price: 'Prix actuel (en €)',
-      show_in_list: 'Afficher dans la liste'
+      show_in_list: 'Afficher dans la liste',
+      percent_change_1H: 'Changement durant l\'heure (%)',
+      percent_change_24H: 'Changement durant la journée (%)',
+      percent_change_7D: 'Changement durant la semaine (%)',
+      market_cap: 'Market cap'
     },
     user_object: {
       email: 'E-mail',

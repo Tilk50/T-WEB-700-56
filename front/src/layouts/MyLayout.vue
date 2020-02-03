@@ -107,6 +107,9 @@
     <q-page-container>
       <q-dialog
         v-model="openIt"
+        :maximized="true"
+        transition-show="slide-up"
+        transition-hide="slide-down"
       >
         <div>
           <!-- Call the good modal -->
@@ -156,11 +159,18 @@ export default {
     }
   },
   created () {
+    // Set different listeners
+    this.$root.$on('close-modal', this.closeModal)
     this.$root.$on('user-logged', this.userLogAction)
     this.$root.$on('user-logout', this.userLogAction)
     this.$root.$on('openModal', this.openModal)
   },
   methods: {
+    closeModal () {
+      this.modalToOpen = ''
+      this.id = null
+      this.openIt = false
+    },
     openModal (props) {
       this.modalToOpen = props[0]
       this.id = props[1]

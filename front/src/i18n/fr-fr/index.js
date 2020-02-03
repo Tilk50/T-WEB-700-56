@@ -56,6 +56,9 @@ export default {
     crypto_list: 'Liste des monnaies',
     user_list: 'Liste des utilisateurs',
     price_evolution: 'Evolution du prix (en €)',
+    hide_diagrams: 'Cacher les diagrames',
+    show_diagrams: 'Montrer les diagrames',
+    price_chart: 'Évolution du court de cette crypto monnaie',
     crypto_object: {
       name: 'Nom',
       symbol: 'Symbole',

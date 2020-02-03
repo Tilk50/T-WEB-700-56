@@ -20,29 +20,15 @@ export default {
   },
   mounted () {
     this.loadData()
-    this.initChart()
   },
   methods: {
     loadData () {
-      /* this.$axios.get(this.getUrl)
+      this.$axios.get(this.getUrl)
         .then((response) => {
-          console.log(response.data)
-        }) */
-      this.chartData = [
-        {
-          'date': new Date(2018, 3, 20),
-          'value': 90
-        }, {
-          'date': new Date(2018, 3, 23),
-          'value': 125
-        }, {
-          'date': new Date(2018, 3, 26),
-          'value': 77
-        }, {
-          'date': new Date(2018, 3, 28),
-          'value': 113
-        }
-      ]
+          this.chartData = response.data.list
+          console.log(this.chartData)
+          this.initChart()
+        })
     },
     initChart () {
       // Create chart

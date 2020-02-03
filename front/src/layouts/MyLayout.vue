@@ -66,20 +66,6 @@
         <q-item>
           <h5>{{$t('global_page.drawer.tool_list_title')}}</h5>
         </q-item>
-        <!-- Search bar  -->
-        <q-item>
-          <q-item-section>
-            <div class="text-subtitle2">{{$t('global_page.drawer.tools.search_title')}}</div>
-            <q-input bottom-slots v-model="search" :label="$t('global_page.drawer.tools.search')" counter maxlength="12">
-              <template v-slot:append>
-                <q-icon v-if="search !== ''" name="close" @click="search = ''" class="cursor-pointer" />
-              </template>
-              <template v-slot:after>
-                <q-btn round dense flat icon="send" @click="sendSearch()" :disable="enableSearch"/>
-              </template>
-            </q-input>
-          </q-item-section>
-        </q-item>
         <!-- Fav list -->
         <q-item>
           <q-item-section>
@@ -212,11 +198,6 @@ export default {
     changeLanguage (lang) {
       this.lang = lang
     },
-    sendSearch () {
-      // Set local storage
-      this.$q.localStorage.set('search', this.search)
-      this.$router.push('/search')
-    },
     goHome () {
       this.$router.push('/')
     },
@@ -233,11 +214,6 @@ export default {
     },
     goAdminPanel () {
       this.$router.push('/admin-panel')
-    }
-  },
-  computed: {
-    enableSearch () {
-      return this.search === ''
     }
   }
 }

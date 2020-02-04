@@ -68,6 +68,20 @@
          @click='showDiagram = true'
        />
        <q-btn
+         v-if="canAddToFav"
+         color="info"
+         icon="favorite"
+         :label="$t('labels.add_fav')"
+         @click="addToFav"
+       />
+       <q-btn
+         v-if="isInFav"
+         color="warning"
+         icon="block"
+         :label="$t('labels.remove_fav')"
+         @click="removeFromFav"
+       />
+       <q-btn
          color="negative"
          icon="clear"
          :label="$t('labels.close')"
@@ -89,6 +103,7 @@ export default {
     return {
       crypto: null,
       showDiagram: false,
+      isInFav: false,
       colones: [
         {
           field: 'date',
@@ -113,10 +128,57 @@ export default {
         url: 'http://localhost:3000/api/cryptos/' + this.crypto_id
       }).then((response) => {
         this.crypto = response.data.crypto
+        // Test if user is logged
+        if (this.$q.localStorage.has('jwt')) {
+          this.testFavCrypto()
+        }
       })
     },
     closeModal () {
       this.$root.$emit('close-modal')
+    },
+    addToFav () {
+      this.$axios({
+        method: 'post',
+        headers: {
+          Authorization: 'Bearer ' + this.$q.localStorage.getItem('jwt')
+        },
+        url: 'http://localhost:3000/api/crypto/add-to-fav/' + this.crypto_id
+      }).then((response) => {
+        this.loadData()
+        this.updateFav()
+      })
+    },
+    testFavCrypto () {
+      this.$axios({
+        method: 'get',
+        headers: {
+          Authorization: 'Bearer ' + this.$q.localStorage.getItem('jwt')
+        },
+        url: 'http://localhost:3000/api/crypto/is-in-fav/' + this.crypto_id
+      }).then((response) => {
+        this.isInFav = response.data.isInFav
+      })
+    },
+    removeFromFav () {
+      this.$axios({
+        method: 'delete',
+        headers: {
+          Authorization: 'Bearer ' + this.$q.localStorage.getItem('jwt')
+        },
+        url: 'http://localhost:3000/api/crypto/remove-fav/' + this.crypto_id
+      }).then((response) => {
+        this.loadData()
+        this.updateFav()
+      })
+    },
+    updateFav () {
+      this.$root.$emit('fav-updated')
+    }
+  },
+  computed: {
+    canAddToFav () {
+      return this.$q.localStorage.has('jwt') && !this.isInFav
     }
   }
 }

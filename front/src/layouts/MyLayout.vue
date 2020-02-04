@@ -71,16 +71,7 @@
           <q-item-section>
             <div class="text-subtitle2">{{$t('global_page.drawer.tools.fav_title')}}</div>
             <q-list v-if="isUserLogged">
-              <q-item
-                class="raw"
-                v-for="fav in favs"
-                :key="fav.label">
-                <div class="text-weight-bolder col-6">{{fav.label}}</div>
-                <q-btn
-                  icon="send"
-                  :label="$t('labels.see')"
-                />
-              </q-item>
+              <fav-list :favs="favs"/>
             </q-list>
             <q-item v-else>
               <div>{{$t('messages.have_to_login_to_fav')}}</div>
@@ -111,9 +102,10 @@
 
 import MyAccount from '../components/generalComponants/MyAccount'
 import CryptoModal from '../components/Popup/cryptoModal'
+import FavList from '../components/generalComponants/favList'
 export default {
   name: 'MyLayout',
-  components: { CryptoModal, MyAccount },
+  components: { FavList, CryptoModal, MyAccount },
   data () {
     return {
       leftDrawerOpen: true,
@@ -150,6 +142,7 @@ export default {
     this.$root.$on('user-logged', this.userLogAction)
     this.$root.$on('user-logout', this.userLogAction)
     this.$root.$on('openModal', this.openModal)
+    this.$root.$on('fav-updated', this.getFavList)
   },
   methods: {
     closeModal () {
@@ -209,7 +202,7 @@ export default {
         },
         url: 'http://localhost:3000/api/user/getFavs'
       }).then((response) => {
-        // TODO => Implement the api response
+        this.favs = response.data.list
       })
     },
     goAdminPanel () {

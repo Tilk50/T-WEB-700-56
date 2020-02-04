@@ -117,6 +117,7 @@ export default {
         }
       }).then(() => {
         this.$root.$emit('user-create')
+        this.$root.$emit('close-modal')
       })
     },
     /**

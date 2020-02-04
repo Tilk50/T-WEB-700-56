@@ -74,7 +74,8 @@ export default {
     user_object: {
       email: 'E-mail',
       is_admin: 'Est administrateur'
-    }
+    },
+    no_favs: 'Vous n\'avez pas de favoris'
   },
   hints: {
     enter_mail_address: 'Entrez votre adresse mail',

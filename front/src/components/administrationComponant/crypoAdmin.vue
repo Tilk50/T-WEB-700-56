@@ -26,6 +26,13 @@ export default {
         }
       }).then((response) => {
         console.log(response)
+      }).catch((error) => {
+        // Test if the token isn't valid
+        if (error.response.data.message === 'Invalid token') {
+          this.$root.$emit('token-invalid')
+        } else if (error.response.data.message === 'Permission denied') {
+          this.$root.$emit('permission-denied')
+        }
       })
     }
   }

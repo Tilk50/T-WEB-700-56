@@ -147,6 +147,11 @@ export default {
       }).then((response) => {
         this.loadData()
         this.updateFav()
+      }).catch((error) => {
+        // Test if the token isn't valid
+        if (error.response.data.message === 'Invalid token') {
+          this.$root.$emit('token-invalid')
+        }
       })
     },
     testFavCrypto () {
@@ -158,6 +163,11 @@ export default {
         url: 'http://localhost:3000/api/crypto/is-in-fav/' + this.crypto_id
       }).then((response) => {
         this.isInFav = response.data.isInFav
+      }).catch((error) => {
+        // Test if the token isn't valid
+        if (error.response.data.message === 'Invalid token') {
+          this.$root.$emit('token-invalid')
+        }
       })
     },
     removeFromFav () {
@@ -170,6 +180,11 @@ export default {
       }).then((response) => {
         this.loadData()
         this.updateFav()
+      }).catch((error) => {
+        // Test if the token isn't valid
+        if (error.response.data.message === 'Invalid token') {
+          this.$root.$emit('token-invalid')
+        }
       })
     },
     updateFav () {

@@ -80,20 +80,8 @@
         </q-item>
       </q-list>
     </q-drawer>
-
     <q-page-container>
-      <q-dialog
-        v-model="openIt"
-        :maximized="maximizedModal"
-        transition-show="slide-up"
-        transition-hide="slide-down"
-      >
-        <div>
-          <!-- Call the good modal -->
-          <crypto-modal :crypto_id="id" v-if="modalToOpen === 'crypto-modal'"/>
-          <invalid-token-pop-up v-if="modalToOpen === 'invalid_token'"/>
-        </div>
-      </q-dialog>
+      <modal-generator/>
       <router-view />
     </q-page-container>
   </q-layout>
@@ -102,12 +90,11 @@
 <script>
 
 import MyAccount from '../components/generalComponants/MyAccount'
-import CryptoModal from '../components/Popup/cryptoModal'
 import FavList from '../components/generalComponants/favList'
-import InvalidTokenPopUp from '../components/Popup/InvalidTokenModal'
+import ModalGenerator from '../components/Modal/ModalGenerator'
 export default {
   name: 'MyLayout',
-  components: { InvalidTokenPopUp, FavList, CryptoModal, MyAccount },
+  components: { ModalGenerator, FavList, MyAccount },
   data () {
     return {
       leftDrawerOpen: true,
@@ -117,10 +104,7 @@ export default {
       favs: [],
       showMyAccount: false,
       isUserLogged: false,
-      showAdminPanel: false,
-      openIt: false,
-      modalToOpen: '',
-      id: null
+      showAdminPanel: false
     }
   },
   watch: {
@@ -140,10 +124,8 @@ export default {
   },
   created () {
     // Set different listeners
-    this.$root.$on('close-modal', this.closeModal)
     this.$root.$on('user-logged', this.userLogAction)
     this.$root.$on('user-logout', this.userLogAction)
-    this.$root.$on('openModal', this.openModal)
     this.$root.$on('fav-updated', this.getFavList)
     this.$root.$on('token-invalid', this.invalidToken)
   },
@@ -154,16 +136,6 @@ export default {
       this.$q.localStorage.remove('jwt')
       this.$q.localStorage.remove('admin')
       this.userLogout()
-    },
-    closeModal () {
-      this.modalToOpen = ''
-      this.id = null
-      this.openIt = false
-    },
-    openModal (props) {
-      this.modalToOpen = props[0]
-      this.id = props[1]
-      this.openIt = true
     },
     userLogout () {
       this.favs = []
@@ -222,11 +194,6 @@ export default {
     },
     goAdminPanel () {
       this.$router.push('/admin-panel')
-    }
-  },
-  computed: {
-    maximizedModal () {
-      return this.modalToOpen !== 'invalid_token'
     }
   }
 }

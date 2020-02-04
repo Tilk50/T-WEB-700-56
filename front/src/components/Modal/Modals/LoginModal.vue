@@ -38,7 +38,7 @@
 
 <script>
 export default {
-  name: 'LoginPopup',
+  name: 'LoginModal',
   data () {
     return {
       mail: '',
@@ -48,7 +48,7 @@ export default {
   methods: {
     signin () {
       // Emit to parent componant that we want to sign in
-      this.$emit('user-signin')
+      this.$root.$emit('openModal', ['sign-in-modal'])
     },
     login () {
       this.$axios({

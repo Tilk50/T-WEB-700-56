@@ -79,7 +79,7 @@
          color="warning"
          icon="block"
          :label="$t('labels.remove_fav')"
-         @click="addToFav"
+         @click="removeFromFav"
        />
        <q-btn
          color="negative"
@@ -157,6 +157,17 @@ export default {
         url: 'http://localhost:3000/api/crypto/is-in-fav/' + this.crypto_id
       }).then((response) => {
         this.isInFav = response.data.isInFav
+      })
+    },
+    removeFromFav () {
+      this.$axios({
+        method: 'delete',
+        headers: {
+          Authorization: 'Bearer ' + this.$q.localStorage.getItem('jwt')
+        },
+        url: 'http://localhost:3000/api/crypto/remove-fav/' + this.crypto_id
+      }).then((response) => {
+        console.log(response)
       })
     }
   },

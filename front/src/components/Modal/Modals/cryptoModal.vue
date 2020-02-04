@@ -93,8 +93,8 @@
 </template>
 
 <script>
-import CryptoStatut from '../cryptoComponant/cryptoStatut'
-import ChartManager from '../charts/chartManager'
+import CryptoStatut from '../../cryptoComponant/cryptoStatut'
+import ChartManager from '../../charts/chartManager'
 export default {
   name: 'cryptoModal',
   components: { ChartManager, CryptoStatut },

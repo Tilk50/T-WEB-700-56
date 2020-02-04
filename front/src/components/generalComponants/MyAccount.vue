@@ -11,67 +11,34 @@
         <q-btn
           color="primary"
           :label="$t('labels.log_in')"
-          @click="showConnexionDialog = true"
+          @click="login"
         />
         <q-btn
           color="info"
           :label="$t('labels.sign_in')"
-          @click="showCreateAccountDialog = true"
+          @click="signin"
         />
       </q-card-section>
-      <!-- DIALOG Definition -->
-      <q-dialog
-        v-model="showConnexionDialog"
-        persistent
-        :maximized="true"
-        transition-show="slide-up"
-        transition-hide="slide-down"
-      >
-        <login-popup v-on:user-signin="signin()"/>
-      </q-dialog>
-      <q-dialog
-        v-model="showCreateAccountDialog"
-        persistent
-        :maximized="true"
-        transition-show="slide-up"
-        transition-hide="slide-down"
-      >
-        <signin-popup v-on:user-login="login()"/>
-      </q-dialog>
     </q-card>
 </template>
 
 <script>
-import LoginPopup from '../Popup/LoginPopup'
-import SigninPopup from '../Popup/SigninPopup'
 export default {
   name: 'MyAccount',
-  components: { SigninPopup, LoginPopup },
   data () {
     return {
-      showAccountInfo: false,
-      showConnexionDialog: false,
-      showCreateAccountDialog: false
+      showAccountInfo: false
     }
   },
   mounted () {
     this.showAccountInfo = (this.$q.localStorage.has('jwt') && this.$q.localStorage.getItem('jwt') !== null)
   },
   methods: {
-    /****
-     * Method to call the dialog to create an account
-     */
     signin () {
-      this.showConnexionDialog = false
-      this.showCreateAccountDialog = true
+      this.$root.$emit('openModal', ['sign-in-modal'])
     },
     login () {
-      this.showConnexionDialog = true
-      this.showCreateAccountDialog = false
-    },
-    isUserLogged () {
-      this.showCreateAccountDialog = false
-      this.showConnexionDialog = false
+      this.$root.$emit('openModal', ['login-modal'])
     },
     logout () {
       // Remove localStorage
@@ -82,9 +49,6 @@ export default {
         this.$router.push('/')
       }
     }
-  },
-  created () {
-    this.$root.$on('user-logged', this.isUserLogged)
   }
 }
 </script>

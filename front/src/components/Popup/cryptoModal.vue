@@ -68,6 +68,12 @@
          @click='showDiagram = true'
        />
        <q-btn
+         color="info"
+         icon="favorite"
+         :label="$t('labels.add_fav')"
+         @click="addToFav"
+       />
+       <q-btn
          color="negative"
          icon="clear"
          :label="$t('labels.close')"
@@ -117,6 +123,22 @@ export default {
     },
     closeModal () {
       this.$root.$emit('close-modal')
+    },
+    addToFav () {
+      this.$axios({
+        method: 'post',
+        header: {
+          Authorization: 'Bearer ' + this.$q.localStorage.getItem('jwt')
+        },
+        url: 'http://localhost:3000/api/crypto/add-to-fav/' + this.crypto_id
+      }).then((response) => {
+        console.log(response)
+      })
+    }
+  },
+  computed: {
+    canAddToFav () {
+      return this.$q.localStorage.has('jwt')
     }
   }
 }

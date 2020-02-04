@@ -69,6 +69,7 @@ export default {
       percent_change_7D: 'Changement durant la semaine (%)',
       market_cap: 'Market cap'
     },
+    add_fav: 'Ajouter aux favoris',
     user_object: {
       email: 'E-mail',
       is_admin: 'Est administrateur'

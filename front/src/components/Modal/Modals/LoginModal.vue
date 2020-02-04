@@ -66,6 +66,7 @@ export default {
           // Set in local Storage the user role
           this.$q.localStorage.set('admin', response.data.admin)
           // Emit to the parent componant that we avec sign in
+          this.$root.$emit('close-modal')
           this.$root.$emit('user-logged')
         }
       })

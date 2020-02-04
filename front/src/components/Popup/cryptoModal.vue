@@ -120,10 +120,6 @@ export default {
   },
   mounted () {
     this.loadData()
-    // Test if user is logged
-    if (this.$q.localStorage.has('jwt')) {
-      this.testFavCrypto()
-    }
   },
   methods: {
     loadData () {
@@ -132,6 +128,10 @@ export default {
         url: 'http://localhost:3000/api/cryptos/' + this.crypto_id
       }).then((response) => {
         this.crypto = response.data.crypto
+        // Test if user is logged
+        if (this.$q.localStorage.has('jwt')) {
+          this.testFavCrypto()
+        }
       })
     },
     closeModal () {
@@ -145,7 +145,8 @@ export default {
         },
         url: 'http://localhost:3000/api/crypto/add-to-fav/' + this.crypto_id
       }).then((response) => {
-        console.log(response)
+        this.loadData()
+        this.updateFav()
       })
     },
     testFavCrypto () {
@@ -167,8 +168,12 @@ export default {
         },
         url: 'http://localhost:3000/api/crypto/remove-fav/' + this.crypto_id
       }).then((response) => {
-        console.log(response)
+        this.loadData()
+        this.updateFav()
       })
+    },
+    updateFav () {
+      this.$root.$emit('fav-updated')
     }
   },
   computed: {

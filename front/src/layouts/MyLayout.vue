@@ -150,6 +150,7 @@ export default {
     this.$root.$on('user-logged', this.userLogAction)
     this.$root.$on('user-logout', this.userLogAction)
     this.$root.$on('openModal', this.openModal)
+    this.$root.$on('fav-updated', this.getFavList)
   },
   methods: {
     closeModal () {
@@ -209,6 +210,7 @@ export default {
         },
         url: 'http://localhost:3000/api/user/getFavs'
       }).then((response) => {
+        console.log(response)
         // TODO => Implement the api response
       })
     },

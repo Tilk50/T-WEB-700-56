@@ -1,0 +1,9 @@
+{
+  "serverPort": 3000,
+  "secretKey": "superS3cret",
+  "database": {
+    "dbname": "countOfMoneydb",
+    "host": "localhost",
+    "port": 27017
+  }
+}

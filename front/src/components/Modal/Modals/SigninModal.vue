@@ -116,6 +116,12 @@ export default {
           }
         }
       }).then(() => {
+        this.$q.notify({
+          icon: 'check_circle',
+          color: 'positive',
+          message: this.$t('labels.account_created'),
+          position: 'top-right'
+        })
         this.$root.$emit('user-create')
         this.$root.$emit('close-modal')
       })

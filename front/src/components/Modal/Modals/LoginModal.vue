@@ -69,6 +69,15 @@ export default {
           this.$root.$emit('close-modal')
           this.$root.$emit('user-logged')
         }
+      }).catch((error) => {
+        if (error.response.status) {
+          this.$q.notify({
+            icon: 'report_problem',
+            color: 'warning',
+            message: this.$t('errors.invalid_credential'),
+            position: 'top-right'
+          })
+        }
       })
     }
   },

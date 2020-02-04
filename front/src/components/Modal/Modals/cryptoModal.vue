@@ -145,6 +145,12 @@ export default {
         },
         url: 'http://localhost:3000/api/crypto/add-to-fav/' + this.crypto_id
       }).then((response) => {
+        this.$q.notify({
+          icon: 'check_circle',
+          color: 'positive',
+          message: this.$t('labels.crypto_added_to_favs'),
+          position: 'top-right'
+        })
         this.loadData()
         this.updateFav()
       }).catch((error) => {
@@ -178,6 +184,12 @@ export default {
         },
         url: 'http://localhost:3000/api/crypto/remove-fav/' + this.crypto_id
       }).then((response) => {
+        this.$q.notify({
+          icon: 'report_problem',
+          color: 'warning',
+          message: this.$t('labels.crypto_removed_from_favs'),
+          position: 'top-right'
+        })
         this.loadData()
         this.updateFav()
       }).catch((error) => {

@@ -37,7 +37,8 @@ export default {
     password_different: 'Les deux mots de passe doivent être identiques',
     mail_already_use: 'Cette address mail correspond déjà à un compte',
     unauthorized: 'Attention, vous n\'êtes pas autorisé à accéder à cette fonctionnalisté',
-    invalid_token: 'Votre session à expiré, veuillez vous reconnecter'
+    invalid_token: 'Votre session à expiré, veuillez vous reconnecter',
+    invalid_credential: 'Mauvais login / mot de passe'
   },
   labels: {
     close: 'Fermer',
@@ -76,7 +77,11 @@ export default {
       email: 'E-mail',
       is_admin: 'Est administrateur'
     },
-    no_favs: 'Vous n\'avez pas de favoris'
+    no_favs: 'Vous n\'avez pas de favoris',
+    account_created: 'Votre compte à bien été créée',
+    crypto_added_to_favs: 'Crypto bien ajoutée à vos favoris',
+    crypto_removed_from_favs: 'Crypto suprimée des favoris',
+    data_uploaded: 'Les données ont bien étées mises à jour'
   },
   hints: {
     enter_mail_address: 'Entrez votre adresse mail',

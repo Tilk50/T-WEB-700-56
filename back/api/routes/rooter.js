@@ -21,6 +21,7 @@ router.post('/test-mail', securityController.test_mail);
 /**
  * Routes to manage crypto
  */
+router.delete('/crypto/remove-fav/:id', auth.isAuthenticated, cryptoController.removeToFav);
 router.get('/crypto/is-in-fav/:id', auth.isAuthenticated, cryptoController.isInFav);
 router.post('/crypto/add-to-fav/:id', auth.isAuthenticated, cryptoController.addToFav);
 router.get('/cryptos/', cryptoController.list);

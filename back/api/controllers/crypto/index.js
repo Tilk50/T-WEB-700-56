@@ -3,5 +3,6 @@
 module.exports = {
     list: require('./list'),
     get: require('./get'),
-    addToFav: require('./addToFav')
+    addToFav: require('./addToFav'),
+    isInFav: require('./isInFav')
 };

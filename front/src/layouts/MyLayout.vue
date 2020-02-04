@@ -84,13 +84,14 @@
     <q-page-container>
       <q-dialog
         v-model="openIt"
-        :maximized="true"
+        :maximized="maximizedModal"
         transition-show="slide-up"
         transition-hide="slide-down"
       >
         <div>
           <!-- Call the good modal -->
           <crypto-modal :crypto_id="id" v-if="modalToOpen === 'crypto-modal'"/>
+          <invalid-token-pop-up v-if="modalToOpen === 'invalid_token'"/>
         </div>
       </q-dialog>
       <router-view />
@@ -103,9 +104,10 @@
 import MyAccount from '../components/generalComponants/MyAccount'
 import CryptoModal from '../components/Popup/cryptoModal'
 import FavList from '../components/generalComponants/favList'
+import InvalidTokenPopUp from '../components/Popup/InvalidTokenModal'
 export default {
   name: 'MyLayout',
-  components: { FavList, CryptoModal, MyAccount },
+  components: { InvalidTokenPopUp, FavList, CryptoModal, MyAccount },
   data () {
     return {
       leftDrawerOpen: true,
@@ -143,8 +145,16 @@ export default {
     this.$root.$on('user-logout', this.userLogAction)
     this.$root.$on('openModal', this.openModal)
     this.$root.$on('fav-updated', this.getFavList)
+    this.$root.$on('token-invalid', this.invalidToken)
   },
   methods: {
+    invalidToken () {
+      this.$root.$emit('openModal', ['invalid_token'])
+      // Remove tokens
+      this.$q.localStorage.remove('jwt')
+      this.$q.localStorage.remove('admin')
+      this.userLogout()
+    },
     closeModal () {
       this.modalToOpen = ''
       this.id = null
@@ -203,10 +213,20 @@ export default {
         url: 'http://localhost:3000/api/user/getFavs'
       }).then((response) => {
         this.favs = response.data.list
+      }).catch((error) => {
+        // Test if the token isn't valid
+        if (error.response.data.message === 'Invalid token') {
+          this.$root.$emit('token-invalid')
+        }
       })
     },
     goAdminPanel () {
       this.$router.push('/admin-panel')
+    }
+  },
+  computed: {
+    maximizedModal () {
+      return this.modalToOpen !== 'invalid_token'
     }
   }
 }

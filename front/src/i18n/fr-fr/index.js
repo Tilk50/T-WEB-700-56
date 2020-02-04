@@ -36,7 +36,8 @@ export default {
     enter_mail: 'Vous devez entrer votre addresse mail au bon format',
     password_different: 'Les deux mots de passe doivent être identiques',
     mail_already_use: 'Cette address mail correspond déjà à un compte',
-    unauthorized: 'Attention, vous n\'êtes pas autorisé à accéder à cette fonctionnalisté'
+    unauthorized: 'Attention, vous n\'êtes pas autorisé à accéder à cette fonctionnalisté',
+    invalid_token: 'Votre session à expiré, veuillez vous reconnecter'
   },
   labels: {
     close: 'Fermer',

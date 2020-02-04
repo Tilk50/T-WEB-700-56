@@ -2,5 +2,6 @@
 
 module.exports = {
     list: require('./list'),
-    get: require('./get')
+    get: require('./get'),
+    addToFav: require('./addToFav')
 };

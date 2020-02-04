@@ -127,7 +127,7 @@ export default {
     addToFav () {
       this.$axios({
         method: 'post',
-        header: {
+        headers: {
           Authorization: 'Bearer ' + this.$q.localStorage.getItem('jwt')
         },
         url: 'http://localhost:3000/api/crypto/add-to-fav/' + this.crypto_id

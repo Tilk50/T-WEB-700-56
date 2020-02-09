@@ -73,6 +73,7 @@ export default {
     },
     add_fav: 'Ajouter aux favoris',
     remove_fav: 'Retirer des favoris',
+    my_account: 'Mon compte',
     user_object: {
       email: 'E-mail',
       is_admin: 'Est administrateur'

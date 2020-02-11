@@ -17,7 +17,8 @@ const getMe = function (req, res, next) {
                   return (
                       {
                           id: elem._id,
-                          name: elem.name
+                          name: elem.name,
+                          price: elem.price
                       }
                   );
               });

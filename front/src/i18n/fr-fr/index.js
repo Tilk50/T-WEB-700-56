@@ -42,6 +42,7 @@ export default {
     unidentified: 'Vous n\'êtes pas connectés'
   },
   labels: {
+    update_my_info: 'Mise à jour de mes informations',
     edit_my_infos: 'Modifier mes informations',
     actions: 'Actions',
     close: 'Fermer',

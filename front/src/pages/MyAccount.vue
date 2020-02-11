@@ -47,6 +47,11 @@ export default {
         }
       }).then((response) => {
         this.me = response.data.user
+      }).catch((error) => {
+        // Test if the token isn't valid
+        if (error.response.data.message === 'Invalid token') {
+          this.$root.$emit('token-invalid')
+        }
       })
     }
   }

@@ -35,12 +35,6 @@ export default {
     }
   },
   methods: {
-    loadData () {
-      this.$axios({
-        method: 'get',
-        url: 'http://localhost:3000/api/importData'
-      })
-    },
     closeDialog () {
       // Remove the error message
       this.$q.localStorage.remove('error')
@@ -51,10 +45,6 @@ export default {
     if (this.$q.localStorage.has('error') && this.$q.localStorage.getItem('error') !== '') {
       (this.$q.localStorage.getItem('error'))
       this.errorDialog = true
-    }
-    // Delete localStorage
-    if (this.$q.localStorage.has('search')) {
-      this.$q.localStorage.remove('search')
     }
   }
 }

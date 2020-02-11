@@ -80,19 +80,8 @@
         </q-item>
       </q-list>
     </q-drawer>
-
     <q-page-container>
-      <q-dialog
-        v-model="openIt"
-        :maximized="true"
-        transition-show="slide-up"
-        transition-hide="slide-down"
-      >
-        <div>
-          <!-- Call the good modal -->
-          <crypto-modal :crypto_id="id" v-if="modalToOpen === 'crypto-modal'"/>
-        </div>
-      </q-dialog>
+      <modal-generator/>
       <router-view />
     </q-page-container>
   </q-layout>
@@ -101,11 +90,11 @@
 <script>
 
 import MyAccount from '../components/generalComponants/MyAccount'
-import CryptoModal from '../components/Popup/cryptoModal'
 import FavList from '../components/generalComponants/favList'
+import ModalGenerator from '../components/Modal/ModalGenerator'
 export default {
   name: 'MyLayout',
-  components: { FavList, CryptoModal, MyAccount },
+  components: { ModalGenerator, FavList, MyAccount },
   data () {
     return {
       leftDrawerOpen: true,
@@ -115,10 +104,7 @@ export default {
       favs: [],
       showMyAccount: false,
       isUserLogged: false,
-      showAdminPanel: false,
-      openIt: false,
-      modalToOpen: '',
-      id: null
+      showAdminPanel: false
     }
   },
   watch: {
@@ -138,27 +124,24 @@ export default {
   },
   created () {
     // Set different listeners
-    this.$root.$on('close-modal', this.closeModal)
     this.$root.$on('user-logged', this.userLogAction)
     this.$root.$on('user-logout', this.userLogAction)
-    this.$root.$on('openModal', this.openModal)
     this.$root.$on('fav-updated', this.getFavList)
+    this.$root.$on('token-invalid', this.invalidToken)
   },
   methods: {
-    closeModal () {
-      this.modalToOpen = ''
-      this.id = null
-      this.openIt = false
-    },
-    openModal (props) {
-      this.modalToOpen = props[0]
-      this.id = props[1]
-      this.openIt = true
+    invalidToken () {
+      this.$root.$emit('openModal', ['invalid_token'])
+      // Remove tokens
+      this.$q.localStorage.remove('jwt')
+      this.$q.localStorage.remove('admin')
+      this.userLogout()
     },
     userLogout () {
       this.favs = []
       this.isUserLogged = false
       this.showAdminPanel = false
+      this.$q.localStorage.remove('admin')
     },
     userLogged () {
       this.isUserLogged = true
@@ -203,6 +186,11 @@ export default {
         url: 'http://localhost:3000/api/user/getFavs'
       }).then((response) => {
         this.favs = response.data.list
+      }).catch((error) => {
+        // Test if the token isn't valid
+        if (error.response.data.message === 'Invalid token') {
+          this.$root.$emit('token-invalid')
+        }
       })
     },
     goAdminPanel () {

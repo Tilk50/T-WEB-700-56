@@ -123,6 +123,13 @@ export default {
           url: 'http://localhost:3000/api/admin/user/' + row._id
         }).then(() => {
           this.loadData()
+        }).catch((error) => {
+          // Test if the token isn't valid
+          if (error.response.data.message === 'Invalid token') {
+            this.$root.$emit('token-invalid')
+          } else if (error.response.data.message === 'Permission denied') {
+            this.$root.$emit('permission-denied')
+          }
         })
       })
     }

@@ -4,74 +4,51 @@
         <div class="text-h6">{{$t('global_page.label.account')}}</div>
       </q-card-section>
       <q-separator/>
-      <q-card-section v-if="showAccountInfo">
-        <q-btn color="negative" @click="logout()">{{$t('labels.log_out')}}</q-btn>
-      </q-card-section>
-      <q-card-section v-else class="q-pa-md q-gutter-sm">
+      <q-card-actions class="justify-around" v-if="showAccountInfo">
+        <q-btn
+          color="secondary"
+          @click="myAccount"
+          :label="$t('labels.my_account')"
+          icon="account_circle"
+        />
+        <q-btn
+          color="negative"
+          @click="logout()"
+          :label="$t('labels.log_out')"
+        />
+      </q-card-actions>
+      <q-card-actions v-else class="q-pa-md q-gutter-sm justify-around">
         <q-btn
           color="primary"
           :label="$t('labels.log_in')"
-          @click="showConnexionDialog = true"
+          @click="login"
         />
         <q-btn
           color="info"
           :label="$t('labels.sign_in')"
-          @click="showCreateAccountDialog = true"
+          @click="signin"
         />
-      </q-card-section>
-      <!-- DIALOG Definition -->
-      <q-dialog
-        v-model="showConnexionDialog"
-        persistent
-        :maximized="true"
-        transition-show="slide-up"
-        transition-hide="slide-down"
-      >
-        <login-popup v-on:user-signin="signin()"/>
-      </q-dialog>
-      <q-dialog
-        v-model="showCreateAccountDialog"
-        persistent
-        :maximized="true"
-        transition-show="slide-up"
-        transition-hide="slide-down"
-      >
-        <signin-popup v-on:user-login="login()"/>
-      </q-dialog>
+      </q-card-actions>
     </q-card>
 </template>
 
 <script>
-import LoginPopup from '../Popup/LoginPopup'
-import SigninPopup from '../Popup/SigninPopup'
 export default {
   name: 'MyAccount',
-  components: { SigninPopup, LoginPopup },
   data () {
     return {
-      showAccountInfo: false,
-      showConnexionDialog: false,
-      showCreateAccountDialog: false
+      showAccountInfo: false
     }
   },
   mounted () {
     this.showAccountInfo = (this.$q.localStorage.has('jwt') && this.$q.localStorage.getItem('jwt') !== null)
   },
   methods: {
-    /****
-     * Method to call the dialog to create an account
-     */
     signin () {
-      this.showConnexionDialog = false
-      this.showCreateAccountDialog = true
+      this.$root.$emit('openModal', ['sign-in-modal'])
     },
     login () {
-      this.showConnexionDialog = true
-      this.showCreateAccountDialog = false
-    },
-    isUserLogged () {
-      this.showCreateAccountDialog = false
-      this.showConnexionDialog = false
+      this.$root.$emit('openModal', ['login-modal'])
     },
     logout () {
       // Remove localStorage
@@ -81,10 +58,10 @@ export default {
       if (this.$router.currentRoute.path !== '/') {
         this.$router.push('/')
       }
+    },
+    myAccount () {
+      this.$router.push('/me')
     }
-  },
-  created () {
-    this.$root.$on('user-logged', this.isUserLogged)
   }
 }
 </script>

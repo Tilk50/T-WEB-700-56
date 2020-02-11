@@ -38,7 +38,7 @@
 
 <script>
 export default {
-  name: 'LoginPopup',
+  name: 'LoginModal',
   data () {
     return {
       mail: '',
@@ -48,7 +48,7 @@ export default {
   methods: {
     signin () {
       // Emit to parent componant that we want to sign in
-      this.$emit('user-signin')
+      this.$root.$emit('openModal', ['sign-in-modal'])
     },
     login () {
       this.$axios({
@@ -66,7 +66,17 @@ export default {
           // Set in local Storage the user role
           this.$q.localStorage.set('admin', response.data.admin)
           // Emit to the parent componant that we avec sign in
+          this.$root.$emit('close-modal')
           this.$root.$emit('user-logged')
+        }
+      }).catch((error) => {
+        if (error.response.status) {
+          this.$q.notify({
+            icon: 'report_problem',
+            color: 'warning',
+            message: this.$t('errors.invalid_credential'),
+            position: 'top-right'
+          })
         }
       })
     }

@@ -93,8 +93,8 @@
 </template>
 
 <script>
-import CryptoStatut from '../cryptoComponant/cryptoStatut'
-import ChartManager from '../charts/chartManager'
+import CryptoStatut from '../../cryptoComponant/cryptoStatut'
+import ChartManager from '../../charts/chartManager'
 export default {
   name: 'cryptoModal',
   components: { ChartManager, CryptoStatut },
@@ -145,8 +145,19 @@ export default {
         },
         url: 'http://localhost:3000/api/crypto/add-to-fav/' + this.crypto_id
       }).then((response) => {
+        this.$q.notify({
+          icon: 'check_circle',
+          color: 'positive',
+          message: this.$t('labels.crypto_added_to_favs'),
+          position: 'top-right'
+        })
         this.loadData()
         this.updateFav()
+      }).catch((error) => {
+        // Test if the token isn't valid
+        if (error.response.data.message === 'Invalid token') {
+          this.$root.$emit('token-invalid')
+        }
       })
     },
     testFavCrypto () {
@@ -158,6 +169,11 @@ export default {
         url: 'http://localhost:3000/api/crypto/is-in-fav/' + this.crypto_id
       }).then((response) => {
         this.isInFav = response.data.isInFav
+      }).catch((error) => {
+        // Test if the token isn't valid
+        if (error.response.data.message === 'Invalid token') {
+          this.$root.$emit('token-invalid')
+        }
       })
     },
     removeFromFav () {
@@ -168,8 +184,19 @@ export default {
         },
         url: 'http://localhost:3000/api/crypto/remove-fav/' + this.crypto_id
       }).then((response) => {
+        this.$q.notify({
+          icon: 'report_problem',
+          color: 'warning',
+          message: this.$t('labels.crypto_removed_from_favs'),
+          position: 'top-right'
+        })
         this.loadData()
         this.updateFav()
+      }).catch((error) => {
+        // Test if the token isn't valid
+        if (error.response.data.message === 'Invalid token') {
+          this.$root.$emit('token-invalid')
+        }
       })
     },
     updateFav () {

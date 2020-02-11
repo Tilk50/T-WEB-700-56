@@ -36,7 +36,7 @@ router.get('/price/get-from-crypto/:id', priceController.getForChart);
  * Routes for User information
  */
 router.get('/user/getFavs', auth.isAuthenticated, userController.get_favs);
-
+router.get('/me', auth.isAuthenticated, userController.get_me);
 
 /**
  * Routes for admin user

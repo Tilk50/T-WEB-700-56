@@ -80,8 +80,8 @@
     </q-card-section>
     <!-- Notice v-close-popup -->
     <q-card-actions align="center">
-      <q-btn :label="$t('labels.validate')" type="submit" color="primary" icon="send" @click="signin()" :disable="!goodData"/>
       <q-btn :label="$t('labels.login')" color="info" v-close-popup @click="login()"/>
+      <q-btn :label="$t('labels.validate')" type="submit" color="primary" icon="send" @click="signin()" :disable="!goodData"/>
       <q-btn icon="close" :label="$t('labels.cancel')" v-close-popup/>
     </q-card-actions>
   </q-card>
@@ -89,7 +89,7 @@
 
 <script>
 export default {
-  name: 'SigninPopup',
+  name: 'SigninModal',
   data () {
     return {
       mail: '',
@@ -115,9 +115,15 @@ export default {
             confirmPassword: this.pwd2
           }
         }
-      }).then((response) => {
+      }).then(() => {
+        this.$q.notify({
+          icon: 'check_circle',
+          color: 'positive',
+          message: this.$t('labels.account_created'),
+          position: 'top-right'
+        })
         this.$root.$emit('user-create')
-        console.log(response)
+        this.$root.$emit('close-modal')
       })
     },
     /**
@@ -147,7 +153,7 @@ export default {
       }
     },
     login () {
-      this.$emit('user-login')
+      this.$root.$emit('openModal', ['login-modal'])
     }
   },
   computed: {

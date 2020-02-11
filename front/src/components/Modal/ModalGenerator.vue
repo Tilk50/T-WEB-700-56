@@ -11,6 +11,7 @@
       <invalid-token-pop-up v-if="modalToOpen === 'invalid_token'"/>
       <signin-modal v-if="modalToOpen === 'sign-in-modal'"/>
       <login-modal v-if="modalToOpen === 'login-modal'"/>
+      <update-my-account v-if="modalToOpen === 'update-my-info'"/>
     </div>
   </q-dialog>
 </template>
@@ -20,9 +21,10 @@ import CryptoModal from './Modals/cryptoModal'
 import InvalidTokenPopUp from './Modals/InvalidTokenModal'
 import SigninModal from './Modals/SigninModal'
 import LoginModal from './Modals/LoginModal'
+import UpdateMyAccount from './Modals/UpdateMyAccount'
 export default {
   name: 'ModalGenerator',
-  components: { LoginModal, SigninModal, InvalidTokenPopUp, CryptoModal },
+  components: { UpdateMyAccount, LoginModal, SigninModal, InvalidTokenPopUp, CryptoModal },
   data () {
     return {
       openIt: false,
@@ -48,7 +50,7 @@ export default {
   },
   computed: {
     maximizedModal () {
-      return this.modalToOpen !== 'invalid_token'
+      return this.modalToOpen !== 'invalid_token' && this.modalToOpen !== 'update-my-info'
     }
   }
 }

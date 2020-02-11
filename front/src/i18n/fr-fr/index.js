@@ -38,9 +38,13 @@ export default {
     mail_already_use: 'Cette address mail correspond déjà à un compte',
     unauthorized: 'Attention, vous n\'êtes pas autorisé à accéder à cette fonctionnalisté',
     invalid_token: 'Votre session à expiré, veuillez vous reconnecter',
-    invalid_credential: 'Mauvais login / mot de passe'
+    invalid_credential: 'Mauvais login / mot de passe',
+    unidentified: 'Vous n\'êtes pas connectés'
   },
   labels: {
+    update_my_info: 'Mise à jour de mes informations',
+    edit_my_infos: 'Modifier mes informations',
+    actions: 'Actions',
     close: 'Fermer',
     see: 'Voir',
     log_in: 'Se connecter',
@@ -73,6 +77,8 @@ export default {
     },
     add_fav: 'Ajouter aux favoris',
     remove_fav: 'Retirer des favoris',
+    my_account: 'Mon compte',
+    my_account_information: 'Informations générales de mon compte',
     user_object: {
       email: 'E-mail',
       is_admin: 'Est administrateur'
@@ -81,7 +87,8 @@ export default {
     account_created: 'Votre compte à bien été créée',
     crypto_added_to_favs: 'Crypto bien ajoutée à vos favoris',
     crypto_removed_from_favs: 'Crypto suprimée des favoris',
-    data_uploaded: 'Les données ont bien étées mises à jour'
+    data_uploaded: 'Les données ont bien étées mises à jour',
+    account_identity: 'Identité liée au compte'
   },
   hints: {
     enter_mail_address: 'Entrez votre adresse mail',

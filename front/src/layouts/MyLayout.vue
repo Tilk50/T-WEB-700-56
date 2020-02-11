@@ -141,6 +141,7 @@ export default {
       this.favs = []
       this.isUserLogged = false
       this.showAdminPanel = false
+      this.$q.localStorage.remove('admin')
     },
     userLogged () {
       this.isUserLogged = true

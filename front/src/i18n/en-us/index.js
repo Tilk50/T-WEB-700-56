@@ -11,7 +11,7 @@ export default {
       tool_list_title: 'Tools list',
       tools: {
         search: 'Search',
-        search_title: 'Rechercher une crypto monnaie',
+        search_title: 'Search crypto money',
         fav_title: 'My favorites'
       }
     },
@@ -60,8 +60,8 @@ export default {
     crypto_list: 'List of cryptocurrency ',
     user_list: 'List of users',
     price_evolution: 'Price evolution (in €)',
-    hide_diagrams: 'Hide the diagrams',
-    show_diagrams: 'Show the diagrams',
+    hide_diagrams: 'Hide diagrams',
+    show_diagrams: 'Show diagrams',
     price_chart: 'Evolution of the court of this cryptocurrency',
     crypto_object: {
       name: 'Name',
@@ -91,7 +91,7 @@ export default {
   hints: {
     enter_mail_address: 'Enter your email address',
     enter_password: 'Enter your password',
-    password_confirm: 'confirm your password'
+    password_confirm: 'Confirm your password'
   },
   messages: {
     have_to_login_to_fav: 'You must be logged-in to have a favorites list'

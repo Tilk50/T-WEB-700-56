@@ -173,6 +173,7 @@ export default {
     },
     changeLanguage (lang) {
       this.lang = lang
+      this.$root.$emit('change-language')
     },
     goHome () {
       this.$router.push('/')

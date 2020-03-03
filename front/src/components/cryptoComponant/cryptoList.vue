@@ -7,6 +7,7 @@
       </q-card-section>
       <q-card-section>
         <q-table
+          v-if="data"
           binary-state-sort
           row-key="id"
           :data="data"
@@ -117,6 +118,9 @@ export default {
       ]
     }
   },
+  created () {
+    this.$root.$on('change-language', this.loadTable)
+  },
   mounted () {
     // Load data
     this.loadData()
@@ -174,6 +178,18 @@ export default {
         },
         url: 'http://localhost:3000/api/admin/hide-crypto/' + row._id
       })
+    },
+    loadTable (props) {
+      this.data = []
+      this.loadData()
+      this.columns = [
+        { name: 'name', label: this.$t('labels.crypto_object.name'), field: 'name', sortable: true, search: true },
+        { name: 'symbol', label: this.$t('labels.crypto_object.symbol'), field: 'symbol', sortable: true, search: true },
+        { name: 'price', label: this.$t('labels.crypto_object.actual_price'), field: 'price', sortable: true, search: false },
+        { name: 'percent_change_1H', label: this.$t('labels.crypto_object.percent_change_1H'), sortable: true, search: false },
+        { name: 'percent_change_24H', label: this.$t('labels.crypto_object.percent_change_24H'), sortable: true, search: false },
+        { name: 'percent_change_7D', label: this.$t('labels.crypto_object.percent_change_7D'), sortable: true, search: false }
+      ]
     }
   },
   watch: {

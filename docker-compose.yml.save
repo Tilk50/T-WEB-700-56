@@ -4,13 +4,12 @@ services:
   quasar:
     build:
       context: ./front
-      target: 'build-stage'
+      target: 'develop-stage'
     ports:
     - '8080:8080'
     volumes:
-    - .:/home/node/app:rw
-    restart: "no"
-    command: sh
+    - '.:/app'
+    command: /bin/sh -c "yarn && quasar dev"
   app:
     container_name: app
     restart: always
@@ -19,9 +18,8 @@ services:
       - "3000:3000"
     links:
       - mongo
-  mongo:
-      image: mongo
-      restart: always
-      environment:
-        MONGO_INITDB_ROOT_USERNAME: user
-        MONGO_INITDB_ROOT_PASSWORD: pass
+ U mongo:
+    container_name: mongo
+    image: mongo
+    ports:
+      - "27017:27017"
